@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UVS Ventures helps manufacturers, exporters and B2B companies discover market opportunities and strategic business partnerships.">
+  <title>UVS Ventures | Building Connections. Creating Opportunities.</title>
+  <style>
+    :root{
+      --navy:#0b1b33;
+      --gold:#b9975b;
+      --light:#f7f7f4;
+      --text:#172033;
+      --muted:#667085;
+      --white:#ffffff;
+      --border:#e7e9ed;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:var(--white);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1100px,92%);margin:auto}
+    header{
+      position:sticky;top:0;z-index:20;
+      background:rgba(255,255,255,.96);
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(10px);
+    }
+    .nav{
+      min-height:72px;display:flex;align-items:center;justify-content:space-between;
+      gap:25px;
+    }
+    .logo{
+      font-weight:800;letter-spacing:2px;font-size:18px;color:var(--navy);
+    }
+    .logo span{display:block;font-size:10px;letter-spacing:3px;color:var(--gold);margin-top:2px}
+    nav{display:flex;gap:24px;align-items:center}
+    nav a{font-size:14px;color:#344054}
+    nav a:hover{color:var(--gold)}
+    .menu{display:none;background:none;border:0;font-size:25px;color:var(--navy)}
+    .btn{
+      display:inline-block;padding:13px 20px;border-radius:6px;
+      background:var(--navy);color:white;font-weight:700;font-size:14px;
+    }
+    .btn.gold{background:var(--gold)}
+    .hero{
+      background:linear-gradient(135deg,#f7f7f4 0%,#fff 60%);
+      padding:105px 0 90px;
+    }
+    .eyebrow{
+      color:var(--gold);font-weight:700;font-size:13px;
+      letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;
+    }
+    h1{
+      font-family:Georgia,"Times New Roman",serif;
+      font-weight:500;font-size:clamp(44px,7vw,76px);
+      line-height:1.03;color:var(--navy);max-width:800px;
+    }
+    h1 em{color:var(--gold)}
+    .hero p{max-width:680px;color:var(--muted);font-size:18px;margin:26px 0 32px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .outline{
+      display:inline-block;padding:12px 19px;border:1px solid var(--navy);
+      border-radius:6px;color:var(--navy);font-weight:700;font-size:14px;
+    }
+    section{padding:82px 0}
+    .section-head{max-width:700px;margin-bottom:40px}
+    .section-head h2{
+      font-family:Georgia,"Times New Roman",serif;font-size:42px;
+      line-height:1.15;color:var(--navy);font-weight:500;margin-bottom:14px;
+    }
+    .section-head p{color:var(--muted)}
+    .soft{background:var(--light)}
+    .grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+    }
+    .card{
+      border:1px solid var(--border);border-radius:10px;padding:28px;
+      background:white;
+    }
+    .card h3{color:var(--navy);font-size:19px;margin-bottom:9px}
+    .card p{color:var(--muted);font-size:15px}
+    .num{color:var(--gold);font-weight:800;font-size:13px;letter-spacing:1px;margin-bottom:15px}
+    .about{
+      display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+    }
+    .about h2{
+      font-family:Georgia,"Times New Roman",serif;font-size:42px;
+      color:var(--navy);font-weight:500;line-height:1.15;margin-bottom:18px;
+    }
+    .about p{color:var(--muted);margin-bottom:14px}
+    .founder{
+      background:var(--navy);color:white;border-radius:12px;padding:38px;
+    }
+    .founder small{color:#d7c18f;letter-spacing:1.5px;text-transform:uppercase}
+    .founder h3{font-family:Georgia,serif;font-size:30px;font-weight:500;margin:12px 0}
+    .founder p{color:#d7dde7}
+    .process{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .step{padding:22px 18px;border-top:2px solid var(--gold)}
+    .step strong{display:block;color:var(--navy);margin-bottom:7px}
+    .step span{font-size:14px;color:var(--muted)}
+    .cta{
+      background:var(--navy);color:white;text-align:center;border-radius:14px;
+      padding:65px 25px;
+    }
+    .cta h2{font-family:Georgia,serif;font-size:42px;font-weight:500;margin-bottom:13px}
+    .cta p{color:#d7dde7;max-width:650px;margin:0 auto 25px}
+    footer{background:#071426;color:white;padding:45px 0 25px}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:35px}
+    footer h3{font-size:18px;margin-bottom:10px}
+    footer p,footer a{color:#b9c2cf;font-size:14px}
+    footer a{display:block;margin:6px 0}
+    .copy{border-top:1px solid #24344b;margin-top:30px;padding-top:18px;color:#8995a6;font-size:12px}
+    @media(max-width:800px){
+      nav{display:none;position:absolute;left:0;right:0;top:72px;background:white;padding:20px;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--border)}
+      nav.open{display:flex}
+      .menu{display:block}
+      .grid,.about{grid-template-columns:1fr}
+      .process{grid-template-columns:1fr 1fr}
+      .footer-grid{grid-template-columns:1fr}
+      .hero{padding:75px 0 65px}
+      section{padding:65px 0}
+      .section-head h2,.about h2,.cta h2{font-size:34px}
+    }
+    @media(max-width:480px){
+      .process{grid-template-columns:1fr}
+      .hero p{font-size:16px}
+      .actions a{width:100%;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#home" class="logo">UVS VENTURES<span>BUSINESS DEVELOPMENT</span></a>
+    <button class="menu" aria-label="Open menu" onclick="toggleMenu()">☰</button>
+    <nav id="nav">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#industries">Industries</a>
+      <a href="#process">How We Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="eyebrow">International B2B Business Development</div>
+      <h1>Building connections.<br><em>Creating opportunities.</em></h1>
+      <p>UVS Ventures helps manufacturers, exporters and B2B companies discover market opportunities, identify relevant business partners and build meaningful commercial relationships.</p>
+      <div class="actions">
+        <a class="btn" href="#contact">Let's Connect</a>
+        <a class="outline" href="#services">Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container about">
+      <div>
+        <div class="eyebrow">About UVS Ventures</div>
+        <h2>Focused on relationships that create business.</h2>
+        <p>We work with businesses that want to explore new markets, develop B2B relationships and find relevant commercial opportunities.</p>
+        <p>Our approach is practical: understand the requirement, research the market, identify relevant prospects and help start the right conversations.</p>
+      </div>
+      <div class="founder">
+        <small>Founder</small>
+        <h3>Yuvraj Gagan Singh</h3>
+        <p>Founder, UVS Ventures. Focused on business development, strategic partnerships and connecting businesses with new opportunities.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="soft" id="services">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">What We Do</div>
+        <h2>Simple solutions for ambitious businesses.</h2>
+        <p>We focus on practical B2B growth activities rather than complicated promises.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="num">01</div><h3>Distributor Discovery</h3><p>Research and identify potential distributors, dealers and B2B partners for your target market.</p></div>
+        <div class="card"><div class="num">02</div><h3>Market Expansion</h3><p>Explore new markets and identify relevant companies and commercial opportunities.</p></div>
+        <div class="card"><div class="num">03</div><h3>B2B Lead Generation</h3><p>Build targeted prospect lists based on your product, industry and ideal customer profile.</p></div>
+        <div class="card"><div class="num">04</div><h3>Strategic Partnerships</h3><p>Help businesses discover potential partners for collaboration and growth.</p></div>
+        <div class="card"><div class="num">05</div><h3>Business Research</h3><p>Research companies, industries and opportunities to support better commercial decisions.</p></div>
+        <div class="card"><div class="num">06</div><h3>International B2B</h3><p>Support businesses exploring cross-border relationships and international opportunities.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="industries">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Industries</div>
+        <h2>Built for businesses across growing industries.</h2>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Solar & Renewable Energy</h3><p>Manufacturers, suppliers, distributors and clean-energy businesses.</p></div>
+        <div class="card"><h3>Manufacturing</h3><p>Industrial manufacturers seeking new markets and commercial partners.</p></div>
+        <div class="card"><h3>Industrial Equipment</h3><p>Machinery, components and technical-product businesses.</p></div>
+        <div class="card"><h3>Technology</h3><p>B2B technology companies exploring partnerships and market opportunities.</p></div>
+        <div class="card"><h3>Export & Import</h3><p>Businesses looking to develop international trade relationships.</p></div>
+        <div class="card"><h3>Other B2B Sectors</h3><p>We evaluate opportunities based on the specific business requirement.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="soft" id="process">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">How We Work</div>
+        <h2>A clear process from requirement to opportunity.</h2>
+      </div>
+      <div class="process">
+        <div class="step"><strong>01 Discover</strong><span>Understand your product, market and objective.</span></div>
+        <div class="step"><strong>02 Research</strong><span>Find relevant companies and opportunities.</span></div>
+        <div class="step"><strong>03 Qualify</strong><span>Prioritize prospects that match your requirements.</span></div>
+        <div class="step"><strong>04 Connect</strong><span>Support relevant B2B conversations.</span></div>
+        <div class="step"><strong>05 Develop</strong><span>Help move promising relationships forward.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="cta">
+        <div class="eyebrow">Future of B2B</div>
+        <h2>AI Business Platform</h2>
+        <p>UVS Ventures is exploring AI-powered tools for lead qualification, client requirements, meetings, CRM workflows and business development. More features are coming soon.</p>
+        <a class="btn gold" href="#contact">Discuss an Opportunity</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Start a Conversation</div>
+        <h2>Have a business opportunity?</h2>
+        <p>Tell us what you're looking for and we'll explore whether there is a potential fit.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Email</h3><p><a href="mailto:partnership@uvsventures.com">partnership@uvsventures.com</a></p></div>
+        <div class="card"><h3>Phone</h3><p><a href="tel:+918887728155">+91 8887728155</a></p></div>
+        <div class="card"><h3>Founder</h3><p>Yuvraj Gagan Singh</p></div>
+      </div>
+      <div style="margin-top:24px">
+        <a class="btn" href="mailto:partnership@uvsventures.com?subject=Business%20Opportunity%20with%20UVS%20Ventures">Email UVS Ventures</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3>UVS VENTURES</h3>
+        <p>Building Connections. Creating Opportunities.</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <a href="mailto:partnership@uvsventures.com">partnership@uvsventures.com</a>
+        <a href="tel:+918887728155">+91 8887728155</a>
+      </div>
+      <div>
+        <h3>Company</h3>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="copy">© 2026 UVS Ventures. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu(){
+    document.getElementById('nav').classList.toggle('open');
+  }
+  document.querySelectorAll('#nav a').forEach(function(link){
+    link.addEventListener('click', function(){
+      document.getElementById('nav').classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
