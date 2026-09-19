@@ -655,7 +655,7 @@
           <div class="eyebrow">A second layer to the UVS experience</div>
           <h2>Need a site that makes people <em>stop scrolling?</em></h2>
           <p>UVS can also create premium business websites and landing experiences with motion, interaction, depth and a high-end visual system — built around the story your customers need to understand.</p>
-          <div class="actions"><a class="btn gold" href="mailto:partnership@uvsventures.com?subject=Website%20Design%20Request%20for%20UVS">Start a Website Project ↗</a></div>
+          <div class="actions"><a class="btn gold contact-cta" href="#contact" data-enquiry="Website / Digital Experience">Start a Website Project ↗</a></div>
         </div>
       </div>
     </section>
@@ -667,28 +667,29 @@
           <h2>Tell us what you are trying to move.</h2>
           <p>A market. A partnership. A pipeline. A website. Give us the context and we will explore the right next step.</p>
         </div>
-        <form class="contact-form reveal" action="https://formsubmit.co/partnership@uvsventures.com" method="POST" onsubmit="return prepareContactForm(event)">
+        <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/ajax/partnership@uvsventures.com" method="POST" onsubmit="return prepareContactForm(event)">
           <input type="hidden" name="_subject" id="mailSubject" value="New UVS Ventures enquiry">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="true">
-          <input type="hidden" name="_next" value="https://uvsventures.com/#contact">
-          <input type="hidden" name="_autoresponse" value="Thank you for contacting UVS Ventures. We have received your enquiry and will get back to you shortly.">
-          <input class="input" id="name" name="Name" required placeholder="Your name">
-          <input class="input" id="company" name="Company" placeholder="Company">
-          <input class="input" id="email" name="Email" type="email" required placeholder="Work email">
-          <select class="select" id="need" name="Enquiry Type">
+          <input type="hidden" name="_url" value="https://uvsventures.com/#contact">
+          <input type="hidden" name="_replyto" id="mailReplyTo" value="">
+          <input class="input" id="name" name="name" required placeholder="Your name">
+          <input class="input" id="company" name="company" placeholder="Company">
+          <input class="input" id="email" name="email" type="email" required placeholder="Work email">
+          <select class="select" id="need" name="enquiry_type">
             <option value="B2B Growth / Market Expansion">B2B Growth / Market Expansion</option>
             <option value="Lead Generation / Partnerships">Lead Generation / Partnerships</option>
             <option value="Commercial Research">Commercial Research</option>
             <option value="Website / Digital Experience">Website / Digital Experience</option>
             <option value="Other">Other</option>
           </select>
-          <textarea class="input textarea" id="message" name="Message" placeholder="What are you trying to achieve?"></textarea>
-          <div style="grid-column:1/-1;display:flex;justify-content:center;margin-top:6px"><button class="btn" type="submit">Start the conversation ↗</button></div>
+          <textarea class="input textarea" id="message" name="message" placeholder="What are you trying to achieve?"></textarea>
+          <div style="grid-column:1/-1;display:flex;justify-content:center;margin-top:6px"><button class="btn" id="contactSubmit" type="submit">Send enquiry securely ↗</button></div>
+          <div id="formStatus" role="status" aria-live="polite" style="grid-column:1/-1;text-align:center;min-height:24px;margin-top:2px;font-size:12px;font-weight:700;color:#68768b"></div>
         </form>
         <div class="actions reveal" style="justify-content:center;margin-top:18px">
           <a class="outline" href="https://wa.me/918887728155?text=Hello%20UVS%20Ventures%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener">Chat with UVS on WhatsApp ↗</a>
-          <a class="outline" href="mailto:partnership@uvsventures.com?subject=UVS%20Ventures%20Enquiry">Email UVS directly ↗</a>
+          <a class="outline contact-cta" href="#contact" data-enquiry="Other">Send an enquiry ↗</a>
         </div>
         <div class="contact-note reveal">Email: partnership@uvsventures.com • WhatsApp: +91 8887728155</div>
       </div>
@@ -710,7 +711,7 @@
           <h3>Contact</h3>
           <a href="mailto:partnership@uvsventures.com">partnership@uvsventures.com</a>
           <a href="tel:+918887728155">+91 8887728155</a>
-          <a href="mailto:partnership@uvsventures.com?subject=Website%20Design%20Request%20for%20UVS">Request a site like this</a>
+          <a class="contact-cta" href="#contact" data-enquiry="Website / Digital Experience">Request a site like this</a>
         </div>
       </div>
       <div class="copy"><span>© 2026 UVS Ventures. All rights reserved.</span><span>Made for ambitious businesses.</span></div>
@@ -904,17 +905,92 @@
       setTimeout(boot3D,700);
     })();
 
-    // FormSubmit handles delivery so visitors do not need their own mail app.
-    function prepareContactForm(e){
-      var email=document.getElementById('email').value.trim();
-      if(!email || !email.includes('@')){
-        e.preventDefault();
-        alert('Please enter a valid email address.');
-        return false;
+    // Contact pipeline: send enquiries directly to the UVS mailbox through FormSubmit's
+    // cross-origin AJAX endpoint. Visitors never need an email app.
+    (function(){
+      var form=document.getElementById('contactForm');
+      var status=document.getElementById('formStatus');
+      var submit=document.getElementById('contactSubmit');
+      var reply=document.getElementById('mailReplyTo');
+
+      function setStatus(message,ok){
+        if(!status)return;
+        status.textContent=message;
+        status.style.color=ok?'#2d6a3f':'#8a3b2f';
       }
-      document.getElementById('mailSubject').value='New UVS Ventures enquiry — '+document.getElementById('need').value;
-      return true;
-    }
+
+      window.prepareContactForm=async function(e){
+        e.preventDefault();
+        var email=document.getElementById('email').value.trim();
+        var name=document.getElementById('name').value.trim();
+        var company=document.getElementById('company').value.trim();
+        var need=document.getElementById('need').value;
+        var message=document.getElementById('message').value.trim();
+
+        if(!email || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)){
+          setStatus('Please enter a valid email address.',false);
+          document.getElementById('email').focus();
+          return false;
+        }
+
+        document.getElementById('mailSubject').value='New UVS Ventures enquiry — '+need;
+        reply.value=email;
+
+        if(submit){submit.disabled=true;submit.style.opacity='.65';submit.innerHTML='Sending enquiry…';}
+        setStatus('Sending your enquiry securely…',true);
+
+        try{
+          var response=await fetch(form.action,{
+            method:'POST',
+            headers:{'Content-Type':'application/json','Accept':'application/json'},
+            body:JSON.stringify({
+              name:name,
+              company:company,
+              email:email,
+              enquiry_type:need,
+              message:message,
+              _subject:document.getElementById('mailSubject').value,
+              _template:'table',
+              _captcha:'true',
+              _replyto:email,
+              _url:window.location.href
+            })
+          });
+
+          var data=await response.json().catch(function(){return {};});
+          if(response.ok && (data.success===true || data.message)){
+            form.reset();
+            setStatus('Enquiry sent successfully. UVS will contact you shortly.',true);
+          }else{
+            throw new Error(data.message || 'Submission service did not accept the enquiry.');
+          }
+        }catch(err){
+          console.error('UVS enquiry delivery failed:',err);
+          setStatus('We could not complete the online send. Please use WhatsApp or email below.',false);
+        }finally{
+          if(submit){submit.disabled=false;submit.style.opacity='1';submit.innerHTML='Send enquiry securely ↗';}
+        }
+        return false;
+      };
+
+      document.querySelectorAll('.contact-cta').forEach(function(link){
+        link.addEventListener('click',function(){
+          var desired=this.getAttribute('data-enquiry');
+          if(desired){
+            var select=document.getElementById('need');
+            if(select){
+              Array.prototype.forEach.call(select.options,function(opt){
+                opt.selected=(opt.value===desired);
+              });
+            }
+          }
+          setTimeout(function(){
+            var first=document.getElementById('name');
+            if(first)first.focus();
+          },450);
+        });
+      });
+    })();
   </script>
 </body>
 </html>
