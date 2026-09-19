@@ -839,9 +839,8 @@
       }
     },{passive:true});
 
-    // Cinematic intro voice — automatic, with no on-screen tap button.
-    // Browsers can restrict audible autoplay; this code makes the strongest
-    // possible automatic attempt and retries as voices become available.
+    // Cinematic intro voice — natural, conversational delivery, no visible controls.
+    // Uses the most natural English voice exposed by the visitor's browser/device.
     (function(){
       var spoken=false;
       var introStarted=performance.now();
@@ -852,30 +851,51 @@
       function pickVoice(){
         var voices=synth.getVoices();
         var english=voices.filter(function(v){return /^en(-|_)/i.test(v.lang);});
-        var preferred=english.find(function(v){
-          var n=(v.name||'').toLowerCase();
-          return /male|david|daniel|alex|mark|george|guy|ryan|arthur|oliver/.test(n);
-        });
-        return preferred || english.find(function(v){return v.default;}) || english[0] || voices[0];
+        if(!english.length) return voices[0];
+
+        // Prefer modern, natural-sounding platform voices over legacy voices.
+        var preferredNames=[
+          'Microsoft Guy Online','Microsoft Ryan Online','Microsoft Christopher Online',
+          'Microsoft Andrew Online','Microsoft Brian Online','Microsoft Jenny Online',
+          'Google UK English Male','Google US English','Google UK English',
+          'Samantha','Daniel','Alex','Arthur','Oliver'
+        ];
+
+        for(var i=0;i<preferredNames.length;i++){
+          var exact=english.find(function(v){
+            return (v.name||'').toLowerCase().indexOf(preferredNames[i].toLowerCase()) !== -1;
+          });
+          if(exact) return exact;
+        }
+
+        return english.find(function(v){return v.default;}) || english[0];
       }
 
       function speakIntro(){
         if(spoken || performance.now()-introStarted>6800) return;
         try{
           synth.cancel();
-          var u=new SpeechSynthesisUtterance('Welcome... to UVS Ventures.');
+
+          // Short, conversational wording sounds much more human than a dramatic TTS line.
+          var u=new SpeechSynthesisUtterance('Welcome to UVS Ventures.');
           u.lang='en-US';
-          u.rate=.68;
-          u.pitch=.62;
+
+          // Natural conversational settings — avoid the unnaturally low/slow AI effect.
+          u.rate=.88;
+          u.pitch=.94;
           u.volume=1;
+
           var v=pickVoice();
-          if(v) u.voice=v;
+          if(v){
+            u.voice=v;
+            if(/^en-GB/i.test(v.lang)) u.lang='en-GB';
+            else if(/^en-IN/i.test(v.lang)) u.lang='en-IN';
+            else u.lang='en-US';
+          }
+
           u.onstart=function(){spoken=true;};
           u.onend=function(){spoken=true;};
-          u.onerror=function(){
-            // Keep retrying automatically while the cinematic intro is active.
-            spoken=false;
-          };
+          u.onerror=function(){spoken=false;};
           synth.speak(u);
         }catch(err){}
       }
@@ -883,22 +903,21 @@
       // Immediate automatic attempt.
       speakIntro();
 
-      // Voices often load asynchronously, especially on Chrome/Windows.
+      // Voices can load asynchronously in Chrome/Windows.
       if(typeof synth.onvoiceschanged!=='undefined'){
         synth.onvoiceschanged=function(){
           if(!spoken) speakIntro();
         };
       }
 
-      // Additional automatic retries during the opening; no visible control.
-      [250,700,1200,1800,2600].forEach(function(ms){
+      // Silent automatic retries — no visible voice button.
+      [300,800,1400,2200].forEach(function(ms){
         setTimeout(function(){
           if(!spoken) speakIntro();
         },ms);
       });
 
-      // If the browser unlocks speech after the first page interaction,
-      // use that interaction silently — there is no tap button.
+      // If the browser unlocks speech after a page interaction, use it silently.
       window.addEventListener('pointerdown',function(){
         if(!spoken && performance.now()-introStarted<6800) speakIntro();
       },{passive:true});
