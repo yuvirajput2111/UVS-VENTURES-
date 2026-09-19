@@ -590,7 +590,6 @@
     </div>
 
     <div class="intro-status"><i></i> Global business intelligence / online</div>
-    <button class="intro-voice" id="introVoice" type="button" aria-label="Enable intro voice">Tap for voice</button>
     <div class="intro-corner tl">UVS / 001</div>
     <div class="intro-corner tr">Global<br>Business Development</div>
     <div class="intro-corner bl">Market • People • Opportunity</div>
@@ -621,7 +620,7 @@
           <p class="hero-copy">UVS Ventures helps ambitious businesses enter markets, build high-value relationships and turn commercial uncertainty into a clear pipeline of opportunities.</p>
           <div class="actions">
             <a class="btn" href="#contact">Build Something With UVS <span>↗</span></a>
-            <a class="outline" href="#services">Explore the system</a>
+            <a class="outline" href="#experience">View Website Demo ↗</a>
           </div>
           <div class="micro">
             <div><b>01</b> Research what matters</div>
@@ -761,7 +760,7 @@
           <div class="eyebrow">A second layer to the UVS experience</div>
           <h2>Need a site that makes people <em>stop scrolling?</em></h2>
           <p>UVS can also create premium business websites and landing experiences with motion, interaction, depth and a high-end visual system — built around the story your customers need to understand.</p>
-          <div class="actions"><a class="btn gold" href="mailto:partnership@uvsventures.com?subject=Website%20Design%20Request%20for%20UVS">Request a website like this ↗</a></div>
+          <div class="actions"><a class="btn gold" href="mailto:partnership@uvsventures.com?subject=Website%20Design%20Request%20for%20UVS">Start a Website Project ↗</a></div>
         </div>
       </div>
     </section>
@@ -838,90 +837,6 @@
         if(menu) menu.setAttribute('aria-expanded','false');
       }
     },{passive:true});
-
-    // Cinematic intro voice — natural, conversational delivery, no visible controls.
-    // Uses the most natural English voice exposed by the visitor's browser/device.
-    (function(){
-      var spoken=false;
-      var introStarted=performance.now();
-      var synth=window.speechSynthesis;
-
-      if(!synth || !window.SpeechSynthesisUtterance) return;
-
-      function pickVoice(){
-        var voices=synth.getVoices();
-        var english=voices.filter(function(v){return /^en(-|_)/i.test(v.lang);});
-        if(!english.length) return voices[0];
-
-        // Prefer modern, natural-sounding platform voices over legacy voices.
-        var preferredNames=[
-          'Microsoft Guy Online','Microsoft Ryan Online','Microsoft Christopher Online',
-          'Microsoft Andrew Online','Microsoft Brian Online','Microsoft Jenny Online',
-          'Google UK English Male','Google US English','Google UK English',
-          'Samantha','Daniel','Alex','Arthur','Oliver'
-        ];
-
-        for(var i=0;i<preferredNames.length;i++){
-          var exact=english.find(function(v){
-            return (v.name||'').toLowerCase().indexOf(preferredNames[i].toLowerCase()) !== -1;
-          });
-          if(exact) return exact;
-        }
-
-        return english.find(function(v){return v.default;}) || english[0];
-      }
-
-      function speakIntro(){
-        if(spoken || performance.now()-introStarted>6800) return;
-        try{
-          synth.cancel();
-
-          // Short, conversational wording sounds much more human than a dramatic TTS line.
-          var u=new SpeechSynthesisUtterance('Welcome to UVS Ventures.');
-          u.lang='en-US';
-
-          // Natural conversational settings — avoid the unnaturally low/slow AI effect.
-          u.rate=.88;
-          u.pitch=.94;
-          u.volume=1;
-
-          var v=pickVoice();
-          if(v){
-            u.voice=v;
-            if(/^en-GB/i.test(v.lang)) u.lang='en-GB';
-            else if(/^en-IN/i.test(v.lang)) u.lang='en-IN';
-            else u.lang='en-US';
-          }
-
-          u.onstart=function(){spoken=true;};
-          u.onend=function(){spoken=true;};
-          u.onerror=function(){spoken=false;};
-          synth.speak(u);
-        }catch(err){}
-      }
-
-      // Immediate automatic attempt.
-      speakIntro();
-
-      // Voices can load asynchronously in Chrome/Windows.
-      if(typeof synth.onvoiceschanged!=='undefined'){
-        synth.onvoiceschanged=function(){
-          if(!spoken) speakIntro();
-        };
-      }
-
-      // Silent automatic retries — no visible voice button.
-      [300,800,1400,2200].forEach(function(ms){
-        setTimeout(function(){
-          if(!spoken) speakIntro();
-        },ms);
-      });
-
-      // If the browser unlocks speech after a page interaction, use it silently.
-      window.addEventListener('pointerdown',function(){
-        if(!spoken && performance.now()-introStarted<6800) speakIntro();
-      },{passive:true});
-    })();
 
     // Subtle cursor spotlight
     var glow=document.getElementById('glowCursor');
