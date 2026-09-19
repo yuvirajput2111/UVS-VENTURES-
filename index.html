@@ -128,15 +128,30 @@
     }
     .site-intro-fish .fish{
       position:absolute;
-      left:-180px;
+      left:-220px;
       top:50%;
-      width:min(260px,32vw);
-      min-width:150px;
-      transform:translateY(-50%);
-      animation:introSwim 2.6s cubic-bezier(.2,.65,.35,1) forwards;
-      filter:drop-shadow(0 18px 28px rgba(11,27,51,.16));
+      width:min(290px,34vw);
+      min-width:165px;
+      transform:translateY(-50%) perspective(900px) rotateY(-7deg) rotateZ(-1deg);
+      transform-style:preserve-3d;
+      animation:introSwim 2.8s cubic-bezier(.2,.68,.32,1) forwards;
+      filter:
+        drop-shadow(0 18px 24px rgba(11,27,51,.14))
+        drop-shadow(0 2px 6px rgba(185,151,91,.10));
     }
-    .site-intro-fish .fish svg{width:100%;height:auto;display:block;}
+    .site-intro-fish .fish svg{
+      width:100%;
+      height:auto;
+      display:block;
+      overflow:visible;
+    }
+    .site-intro-fish .fish-body{
+      filter:drop-shadow(0 6px 10px rgba(3,10,20,.22));
+    }
+    .site-intro-fish .scale{
+      opacity:.28;
+      mix-blend-mode:screen;
+    }
     .site-intro-fish .tail{
       transform-origin:center right;
       animation:tailWave .72s ease-in-out infinite;
@@ -158,11 +173,12 @@
       animation:bubbleFloat 2.2s ease-out infinite;
     }
     @keyframes introSwim{
-      0%{left:-180px;transform:translateY(-50%) scale(.82) rotate(-2deg);opacity:0;}
+      0%{left:-220px;transform:translateY(-50%) perspective(900px) rotateY(-10deg) rotateZ(-2deg) scale(.78);opacity:0;}
       10%{opacity:1;}
-      48%{transform:translateY(calc(-50% - 8px)) scale(1) rotate(0);}
-      88%{left:88vw;transform:translateY(calc(-50% + 8px)) scale(.96) rotate(2deg);opacity:1;}
-      100%{left:118vw;transform:translateY(-50%) scale(.88) rotate(2deg);opacity:0;}
+      35%{transform:translateY(calc(-50% - 10px)) perspective(900px) rotateY(2deg) rotateZ(0deg) scale(1.01);}
+      58%{transform:translateY(calc(-50% + 7px)) perspective(900px) rotateY(-2deg) rotateZ(1deg) scale(1);}
+      86%{left:89vw;transform:translateY(calc(-50% - 6px)) perspective(900px) rotateY(4deg) rotateZ(2deg) scale(.98);opacity:1;}
+      100%{left:120vw;transform:translateY(-50%) perspective(900px) rotateY(7deg) rotateZ(2deg) scale(.90);opacity:0;}
     }
     @keyframes introFade{to{opacity:0;visibility:hidden;}}
     @keyframes tailWave{
@@ -209,28 +225,82 @@
 <div class="site-intro-fish" aria-hidden="true">
   <div class="fish">
     <span class="bubbles"></span>
-    <svg viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg" role="presentation">
+    <svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg" role="presentation">
       <defs>
-        <linearGradient id="introFishBody" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#17365d"/>
-          <stop offset="62%" stop-color="#0b1b33"/>
-          <stop offset="100%" stop-color="#061224"/>
+        <radialGradient id="fishBody3D" cx="64%" cy="36%" r="74%">
+          <stop offset="0%" stop-color="#466f9f"/>
+          <stop offset="24%" stop-color="#244d79"/>
+          <stop offset="58%" stop-color="#102e4f"/>
+          <stop offset="84%" stop-color="#07192e"/>
+          <stop offset="100%" stop-color="#020a14"/>
+        </radialGradient>
+        <linearGradient id="fishGold3D" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f6dfaa"/>
+          <stop offset="34%" stop-color="#c9a85c"/>
+          <stop offset="70%" stop-color="#8b6b32"/>
+          <stop offset="100%" stop-color="#5b421d"/>
         </linearGradient>
-        <linearGradient id="introFishFin" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#d9be83"/>
-          <stop offset="100%" stop-color="#9b7a3e"/>
+        <linearGradient id="fishFin3D" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#f0d694" stop-opacity=".95"/>
+          <stop offset="55%" stop-color="#b58b40" stop-opacity=".76"/>
+          <stop offset="100%" stop-color="#6a4c22" stop-opacity=".22"/>
         </linearGradient>
+        <linearGradient id="fishBelly" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#214a71" stop-opacity=".15"/>
+          <stop offset="100%" stop-color="#000814" stop-opacity=".72"/>
+        </linearGradient>
+        <radialGradient id="eyeWhite" cx="36%" cy="32%" r="65%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="100%" stop-color="#a9b8c8"/>
+        </radialGradient>
+        <radialGradient id="eyeBlack" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#203851"/>
+          <stop offset="100%" stop-color="#01050b"/>
+        </radialGradient>
+        <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="2.5"/>
+        </filter>
+        <clipPath id="bodyClip">
+          <path d="M58 86 C65 47 113 18 174 27 C226 34 259 59 270 85 C259 112 226 136 174 143 C113 153 65 126 58 91 Z"/>
+        </clipPath>
       </defs>
-      <path class="tail" d="M39 58 C14 27 8 24 5 30 C11 45 11 71 5 90 C11 96 24 89 39 61 Z" fill="url(#introFishFin)" opacity=".95"/>
-      <path d="M38 58 C45 26 92 9 147 21 C181 28 202 46 208 59 C202 72 181 92 147 99 C92 111 45 90 38 62 Z" fill="url(#introFishBody)"/>
-      <path class="fin" d="M93 26 C101 5 114 3 124 8 C118 23 114 31 108 38 Z" fill="url(#introFishFin)" opacity=".92"/>
-      <path class="fin" d="M105 82 C116 104 132 108 142 101 C135 85 127 77 117 73 Z" fill="url(#introFishFin)" opacity=".82"/>
-      <path d="M67 38 C83 26 107 22 133 26" fill="none" stroke="rgba(217,190,131,.7)" stroke-width="3" stroke-linecap="round"/>
-      <path d="M66 76 C84 87 108 91 132 87" fill="none" stroke="rgba(217,190,131,.35)" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="169" cy="48" r="5.5" fill="#f8f6ee"/>
-      <circle cx="171" cy="48" r="2.2" fill="#0b1b33"/>
-      <path d="M203 57 C220 60 226 67 231 72" fill="none" stroke="rgba(185,151,91,.65)" stroke-width="2.5" stroke-linecap="round"/>
-    </svg>
+
+      <ellipse cx="165" cy="151" rx="95" ry="8" fill="#061224" opacity=".12" filter="url(#softGlow)"/>
+
+      <path class="tail" d="M63 86 C31 50 13 45 8 56 C24 70 25 103 8 117 C15 128 33 122 63 94 Z" fill="url(#fishGold3D)"/>
+
+      <path class="fin" d="M122 34 C132 11 152 5 166 14 C157 30 149 42 139 51 Z" fill="url(#fishFin3D)" opacity=".94"/>
+      <path class="fin" d="M137 129 C150 154 171 159 188 149 C176 132 160 121 146 117 Z" fill="url(#fishFin3D)" opacity=".72"/>
+      <path class="fin" d="M94 93 C70 105 56 124 58 137 C77 130 96 118 110 104 Z" fill="url(#fishFin3D)" opacity=".62"/>
+
+      <g class="fish-body">
+        <path d="M58 86 C65 47 113 18 174 27 C226 34 259 59 270 85 C259 112 226 136 174 143 C113 153 65 126 58 91 Z" fill="url(#fishBody3D)"/>
+        <path d="M58 86 C65 47 113 18 174 27 C226 34 259 59 270 85 C259 112 226 136 174 143 C113 153 65 126 58 91 Z" fill="url(#fishBelly)"/>
+        <path d="M67 58 C111 31 175 29 220 49 C240 58 254 71 262 83 C220 72 183 69 144 74 C110 78 84 72 67 58 Z" fill="#86a9c8" opacity=".08"/>
+      </g>
+
+      <g clip-path="url(#bodyClip)" class="scale">
+        <g fill="none" stroke="#d7c18f" stroke-width="1.15" opacity=".36">
+          <path d="M82 46 Q96 58 108 46 Q120 34 132 47 Q144 60 156 48 Q168 36 180 49 Q192 62 204 50 Q216 38 228 53 Q240 68 252 58"/>
+          <path d="M77 57 Q90 69 103 58 Q116 47 129 60 Q142 72 155 61 Q168 49 181 62 Q194 74 207 62 Q220 50 233 64 Q246 78 257 69"/>
+          <path d="M73 69 Q86 81 99 70 Q112 59 125 72 Q138 84 151 73 Q164 61 177 74 Q190 86 203 74 Q216 62 229 76 Q242 88 255 79"/>
+          <path d="M71 81 Q84 93 97 82 Q110 71 123 84 Q136 96 149 85 Q162 73 175 86 Q188 98 201 86 Q214 74 227 88 Q240 100 252 91"/>
+          <path d="M72 94 Q85 106 98 95 Q111 84 124 97 Q137 109 150 98 Q163 86 176 99 Q189 111 202 99 Q215 87 228 101 Q241 113 251 104"/>
+          <path d="M77 107 Q90 119 103 108 Q116 97 129 110 Q142 122 155 111 Q168 99 181 112 Q194 124 207 112 Q220 100 233 114 Q244 124 254 116"/>
+        </g>
+        <ellipse cx="149" cy="59" rx="88" ry="18" fill="#ffffff" opacity=".05"/>
+      </g>
+
+      <path d="M230 67 C250 73 260 80 267 88 C255 98 239 105 222 109" fill="none" stroke="#dfcc9d" stroke-width="2.3" stroke-linecap="round" opacity=".55"/>
+      <path d="M84 90 C108 111 153 122 207 114" fill="none" stroke="#020914" stroke-width="4" stroke-linecap="round" opacity=".34"/>
+
+      <ellipse cx="228" cy="60" rx="11.5" ry="11" fill="url(#eyeWhite)"/>
+      <ellipse cx="229" cy="60" rx="7.2" ry="7.2" fill="url(#eyeBlack)"/>
+      <circle cx="231.2" cy="57.6" r="2.25" fill="#fff" opacity=".95"/>
+
+      <path d="M265 84 C278 86 285 91 291 98" fill="none" stroke="#d9be83" stroke-width="2.2" stroke-linecap="round" opacity=".72"/>
+      <path d="M54 84 C68 77 77 72 91 69" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".08"/>
+    </svg>svg>
   </div>
 </div>
 
