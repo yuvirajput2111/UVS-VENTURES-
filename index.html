@@ -99,7 +99,41 @@
     .founder-quote{margin-top:34px;padding:26px 0 26px 24px;border-left:2px solid var(--gold);color:#ead9b3;font-family:Georgia,"Times New Roman",serif;font-size:22px;font-style:italic;line-height:1.5}
     .founder-signoff{margin-top:24px;color:#75879d;font-size:10px;font-weight:900;letter-spacing:2.4px;text-transform:uppercase}
     @media(max-width:900px){.founder-layout{grid-template-columns:1fr;gap:42px}.founder-identity{min-height:520px}.founder-copy{max-width:760px}}
-    @media(max-width:720px){.founder-feature{padding:82px 0}.founder-layout{gap:32px}.founder-identity{min-height:420px;border-radius:25px}.founder-photo-meta{left:22px;right:22px;bottom:22px}.founder-photo-meta strong{font-size:24px}.founder-copy h2{font-size:48px}.founder-copy p{font-size:15px}.founder-quote{font-size:19px}}
+    @media(max-width:720px){.founder-feature{padding:82px 0}.founder-layout{gap:32px}.founder-identity{min-height:420px;border-radius:25px}.founder-copy h2{font-size:48px}.founder-copy p{font-size:15px}.founder-quote{font-size:19px}}
+
+    /* ----- interactive pocket dino ----- */
+    .dino-widget{position:fixed;right:18px;top:43vh;width:118px;height:116px;z-index:90;pointer-events:none;transform:translate3d(140px,0,0);opacity:0;transition:opacity .35s ease;filter:drop-shadow(0 16px 18px rgba(6,18,37,.16))}
+    .dino-widget.ready{pointer-events:auto;opacity:1;animation:dinoArrive 1.05s cubic-bezier(.18,.9,.22,1) forwards}
+    .dino-widget.exit{animation:dinoExit .8s cubic-bezier(.7,0,.15,1) forwards;pointer-events:none}
+    .dino-widget.chase{transition:none;filter:drop-shadow(0 20px 22px rgba(6,18,37,.2))}
+    .dino-egg{position:absolute;right:13px;bottom:3px;width:42px;height:50px;border-radius:52% 48% 46% 46%;background:linear-gradient(135deg,#fff 0 30%,#e9eef1 31% 62%,#cfd9dd 63%);border:1px solid rgba(6,18,37,.12);box-shadow:inset -7px -9px 13px rgba(6,18,37,.12),0 10px 20px rgba(6,18,37,.1);transform-origin:bottom center}
+    .dino-egg::before{content:"";position:absolute;left:7px;top:17px;width:27px;height:8px;border-radius:50%;background:linear-gradient(90deg,#d5b878,#f1dcaa,#d5b878);transform:rotate(-10deg);opacity:.85}
+    .dino-egg::after{content:"";position:absolute;left:13px;top:2px;width:15px;height:10px;border-radius:50%;background:rgba(255,255,255,.7);filter:blur(1px)}
+    .dino-body{position:absolute;right:18px;bottom:25px;width:78px;height:62px;transform:translate(115px,28px) scale(.72);transform-origin:bottom right}
+    .dino-widget.ready .dino-body{animation:dinoFromEgg 1.15s cubic-bezier(.16,.85,.25,1) .2s forwards}
+    .dino-widget.chase .dino-body{animation:dinoBounce .42s ease-in-out infinite alternate}
+    .dino-shape{position:absolute;left:14px;bottom:0;width:49px;height:42px;border-radius:55% 48% 38% 38%;background:linear-gradient(145deg,#82d94e,#3e9d3e 72%);border:2px solid #276f37;box-shadow:inset -9px -8px 12px rgba(15,65,31,.22),inset 7px 4px 9px rgba(255,255,255,.2)}
+    .dino-neck{position:absolute;right:7px;bottom:24px;width:31px;height:49px;border-radius:55% 45% 35% 40%;background:linear-gradient(145deg,#92e45a,#48a946 70%);border:2px solid #276f37;transform:rotate(8deg);box-shadow:inset -6px -8px 10px rgba(15,65,31,.2)}
+    .dino-head{position:absolute;right:-7px;top:-12px;width:39px;height:32px;border-radius:54% 48% 46% 42%;background:linear-gradient(145deg,#9be862,#4aa947 74%);border:2px solid #276f37;box-shadow:inset -5px -5px 9px rgba(15,65,31,.2)}
+    .dino-head::before{content:"";position:absolute;right:8px;top:7px;width:6px;height:6px;border-radius:50%;background:#10271a;box-shadow:0 0 0 2px rgba(255,255,255,.72)}
+    .dino-head::after{content:"";position:absolute;right:2px;bottom:6px;width:15px;height:5px;border-bottom:2px solid #1f5d30;border-radius:0 0 50% 50%}
+    .dino-tail{position:absolute;left:-9px;bottom:15px;width:39px;height:20px;border-left:9px solid #3c963c;border-bottom:7px solid #3c963c;border-radius:0 0 0 90%;transform:rotate(-20deg)}
+    .dino-arm{position:absolute;right:20px;bottom:22px;width:19px;height:8px;border-radius:8px;background:#4aa947;border:2px solid #276f37;transform:rotate(18deg)}
+    .dino-foot{position:absolute;bottom:-2px;width:22px;height:9px;border-radius:50%;background:#34843a;border:2px solid #276f37}
+    .dino-foot.f1{left:19px}.dino-foot.f2{left:49px}
+    .dino-spike{position:absolute;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:10px solid #4eae45;transform:rotate(25deg)}
+    .dino-spike.s1{left:18px;top:2px}.dino-spike.s2{left:29px;top:-1px}.dino-spike.s3{left:40px;top:1px}
+    .dino-bubble{position:absolute;right:72px;top:-12px;padding:7px 11px;border-radius:12px 12px 3px 12px;background:rgba(255,255,255,.94);border:1px solid rgba(6,18,37,.08);box-shadow:0 12px 30px rgba(6,18,37,.12);color:#18304e;font:800 10px/1.1 Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:.2px;white-space:nowrap;opacity:0;transform:translateY(8px) scale(.92);transition:.35s}
+    .dino-widget.ready .dino-bubble{opacity:1;transform:translateY(0) scale(1);transition-delay:1.05s}
+    .dino-widget.chase .dino-bubble{opacity:1;content:"";background:#dff6d9;color:#215b2c}
+    .dino-hint{position:absolute;right:72px;bottom:8px;color:#6d7c8e;font:700 7px/1 Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:1.3px;text-transform:uppercase;white-space:nowrap;opacity:0;transition:.35s}
+    .dino-widget.ready .dino-hint{opacity:.8;transition-delay:1.45s}
+    @keyframes dinoArrive{0%{opacity:0;transform:translate3d(140px,18px,0) rotate(4deg)}65%{opacity:1;transform:translate3d(-8px,-2px,0) rotate(-2deg)}100%{opacity:1;transform:translate3d(0,0,0) rotate(0)}}
+    @keyframes dinoFromEgg{0%{transform:translate(115px,28px) scale(.72)}55%{transform:translate(20px,-14px) scale(.76) rotate(-4deg)}78%{transform:translate(0,-2px) scale(.84) rotate(2deg)}100%{transform:translate(0,0) scale(.82) rotate(0)}}
+    @keyframes dinoExit{0%{opacity:1;transform:translate3d(0,0,0)}100%{opacity:0;transform:translate3d(180px,-10px,0) rotate(6deg)}}
+    @keyframes dinoBounce{from{transform:translate(0,-2px) scale(.82) rotate(-2deg)}to{transform:translate(0,3px) scale(.82) rotate(3deg)}}
+    @media(max-width:720px){.dino-widget{right:7px;top:auto;bottom:92px;transform:translate3d(100px,0,0) scale(.82)}.dino-bubble{right:60px;top:-8px;font-size:9px}.dino-hint{display:none}.dino-body{right:11px}.dino-widget.ready{animation:dinoArriveMobile .9s cubic-bezier(.18,.9,.22,1) forwards}@keyframes dinoArriveMobile{0%{opacity:0;transform:translate3d(100px,12px,0) scale(.82)}70%{opacity:1;transform:translate3d(-4px,-2px,0) scale(.82)}100%{opacity:1;transform:translate3d(0,0,0) scale(.82)}}}
+    @media(prefers-reduced-motion:reduce){.dino-widget,.dino-body,.dino-widget.ready .dino-bubble{animation:none!important;transition:none!important}.dino-widget.ready{opacity:1;transform:none}.dino-body{transform:translate(0,0) scale(.82)}}
 
     /* ----- navigation ----- */
     header{
@@ -422,8 +456,8 @@
       .stage-card{max-width:150px}
       .actions{width:100%}
       .actions .btn,.actions .outline{flex:1 1 100%;width:100%;min-height:52px}
-      .founder-photo-wrap{transform:none!important}
-      .founder-photo{object-position:50% 45%}
+      .founder-identity{transform:none!important}
+      
       .contact-form{gap:12px}
       .input,.select{min-height:52px;font-size:16px}
       textarea.input{min-height:150px}
@@ -435,7 +469,7 @@
       .stage{min-height:330px}
       .orbital{width:min(330px,90vw)}
       .stage-card{max-width:126px;padding:9px 11px;font-size:10px}
-      .founder-photo-wrap,.founder-photo{min-height:390px}
+      .founder-identity{min-height:390px}
       .founder-copy h2{font-size:42px}
       section{padding:68px 0}
       .section-head h2,.market-copy h2,.exp-copy h2{font-size:42px}
@@ -444,6 +478,20 @@
 </head>
 <body>
   <div class="glow-cursor" id="glowCursor"></div>
+  <div class="dino-widget" id="dinoWidget" aria-label="Interactive UVS pocket dinosaur">
+    <div class="dino-bubble" id="dinoBubble">play with me</div>
+    <div class="dino-hint">tap me</div>
+    <div class="dino-egg" aria-hidden="true"></div>
+    <div class="dino-body" aria-hidden="true">
+      <div class="dino-tail"></div>
+      <div class="dino-shape"></div>
+      <div class="dino-neck"></div>
+      <div class="dino-head"></div>
+      <div class="dino-arm"></div>
+      <div class="dino-foot f1"></div><div class="dino-foot f2"></div>
+      <div class="dino-spike s1"></div><div class="dino-spike s2"></div><div class="dino-spike s3"></div>
+    </div>
+  </div>
 
   <div class="site-intro" aria-hidden="true">
     <div class="noise"></div>
@@ -752,6 +800,61 @@
       });
       stage.addEventListener('pointerleave',function(){orbital.style.transform='';});
     }
+
+    // Tiny interactive UVS dino: playful on entry, cursor-aware after first touch, dismisses on second touch.
+    (function(){
+      var dino=document.getElementById('dinoWidget');
+      var bubble=document.getElementById('dinoBubble');
+      if(!dino)return;
+      var chasing=false,hidden=false,lastScroll=window.scrollY,lastTrigger=0;
+      var home={x:0,y:0};
+      function showDino(){
+        if(hidden)return;
+        dino.classList.remove('exit');
+        dino.classList.add('ready');
+        if(bubble)bubble.textContent='play with me';
+      }
+      function hideDino(){
+        hidden=true;
+        dino.classList.remove('chase','ready');
+        dino.classList.add('exit');
+        setTimeout(function(){dino.style.display='none'},820);
+      }
+      function chase(){
+        if(hidden||chasing)return;
+        chasing=true;
+        dino.classList.add('chase');
+        if(bubble)bubble.textContent='grrr… catch me';
+        var r=dino.getBoundingClientRect();
+        home.x=r.left;home.y=r.top;
+        dino.style.transform='translate3d(-68px,0,0)';
+        setTimeout(function(){if(!hidden){dino.style.transform='translate3d(0,0,0)'}},190);
+      }
+      function follow(e){
+        if(!chasing||hidden)return;
+        var tx=e.clientX-42, ty=e.clientY-38;
+        var r=dino.getBoundingClientRect();
+        var x=r.left+(tx-r.left)*.13;
+        var y=r.top+(ty-r.top)*.13;
+        var maxX=window.innerWidth-104,maxY=window.innerHeight-104;
+        x=Math.max(8,Math.min(maxX,x)); y=Math.max(72,Math.min(maxY,y));
+        dino.style.position='fixed';
+        dino.style.left=x+'px';dino.style.top=y+'px';dino.style.right='auto';dino.style.bottom='auto';
+      }
+      dino.addEventListener('pointerenter',function(){if(!chasing)chase()});
+      dino.addEventListener('pointerdown',function(e){
+        e.preventDefault();
+        if(chasing)hideDino();else chase();
+      });
+      window.addEventListener('pointermove',follow,{passive:true});
+      window.addEventListener('scroll',function(){
+        var now=window.scrollY,up=now<lastScroll;
+        if(up && now<140 && lastTrigger!==1){showDino();lastTrigger=1}
+        if(now>260)lastTrigger=0;
+        lastScroll=now;
+      },{passive:true});
+      setTimeout(showDino,900);
+    })();
 
     // FormSubmit handles delivery so visitors do not need their own mail app.
     function prepareContactForm(e){
