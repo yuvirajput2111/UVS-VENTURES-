@@ -37,144 +37,168 @@
     button{font:inherit}
     .container{width:min(1180px,92%);margin:auto}
 
-    /* ----- professional opening identity ----- */
+    /* ----- cinematic UVS opening ----- */
     .site-intro{
-      position:fixed;
-      inset:0;
-      z-index:9999;
-      display:grid;
-      place-items:center;
-      overflow:hidden;
-      background:
-        radial-gradient(circle at 50% 48%,rgba(32,76,120,.28),transparent 24%),
-        radial-gradient(circle at 50% 50%,rgba(200,163,93,.08),transparent 40%),
-        linear-gradient(145deg,#030b17 0%,#07172b 52%,#020712 100%);
-      opacity:1;
-      animation:introFade .85s cubic-bezier(.6,0,.2,1) 2.2s forwards;
+      position:fixed;inset:0;z-index:9999;overflow:hidden;
+      display:grid;place-items:center;
+      background:#020711;color:#fff;
+      animation:introExit 1s cubic-bezier(.7,0,.15,1) 4.35s forwards;
+      pointer-events:none;
     }
-    .site-intro::before{
-      content:"";
-      position:absolute;
-      inset:-30%;
-      background:
-        linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
-      background-size:60px 60px;
-      transform:perspective(800px) rotateX(68deg) translateY(12%);
-      opacity:.45;
+    .site-intro .noise{
+      position:absolute;inset:-50%;opacity:.055;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+      animation:noiseMove .18s steps(2) infinite;
     }
-    .site-intro::after{
-      content:"";
-      position:absolute;
-      width:560px;
-      height:560px;
-      border-radius:50%;
-      border:1px solid rgba(200,163,93,.16);
+    .intro-stars{
+      position:absolute;inset:0;
+      background-image:
+        radial-gradient(circle,rgba(255,255,255,.85) 0 1px,transparent 1.5px),
+        radial-gradient(circle,rgba(200,163,93,.65) 0 1px,transparent 1.4px);
+      background-size:137px 149px,211px 193px;
+      background-position:12px 30px,87px 91px;
+      opacity:.34;
+      animation:starDrift 8s linear infinite;
+    }
+    .intro-vignette{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 50% 50%,transparent 0 24%,rgba(2,7,17,.15) 45%,rgba(2,7,17,.92) 100%),
+        linear-gradient(180deg,rgba(2,7,17,.18),rgba(2,7,17,.72));
+    }
+    .intro-grid{
+      position:absolute;width:150vw;height:95vh;left:-25vw;top:52%;
+      background-image:linear-gradient(rgba(105,156,199,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(105,156,199,.12) 1px,transparent 1px);
+      background-size:70px 70px;
+      transform:perspective(650px) rotateX(69deg) scale(1.35);
+      transform-origin:center top;
+      mask-image:linear-gradient(to bottom,transparent 0%,black 22%,black 76%,transparent 100%);
+      animation:gridPush 4.5s cubic-bezier(.2,.65,.2,1) infinite;
+    }
+    .intro-aura{
+      position:absolute;width:520px;height:520px;border-radius:50%;
+      background:radial-gradient(circle,rgba(43,111,169,.24),rgba(200,163,93,.08) 34%,transparent 68%);
+      filter:blur(8px);
+      animation:auraBreath 3.8s ease-in-out infinite;
+    }
+    .intro-portal{
+      position:absolute;width:430px;height:430px;border-radius:50%;
+      border:1px solid rgba(200,163,93,.24);
       box-shadow:
-        0 0 0 34px rgba(200,163,93,.035),
-        0 0 0 76px rgba(200,163,93,.018);
-      animation:introHalo 4.8s ease-in-out infinite;
+        0 0 0 1px rgba(255,255,255,.025),
+        0 0 70px rgba(200,163,93,.08),
+        inset 0 0 80px rgba(45,107,157,.08);
+      transform:rotateX(70deg);
+      animation:portalTilt 5.5s ease-in-out infinite;
     }
+    .intro-portal::before,.intro-portal::after{
+      content:"";position:absolute;inset:9%;border-radius:50%;
+      border:1px solid rgba(96,164,210,.20);
+    }
+    .intro-portal::after{inset:22%;border-color:rgba(200,163,93,.32)}
     .intro-core{
-      position:relative;
-      width:260px;
-      height:260px;
-      display:grid;
-      place-items:center;
+      position:relative;width:250px;height:250px;
+      display:grid;place-items:center;
       transform-style:preserve-3d;
-      animation:introCore 2.6s cubic-bezier(.2,.75,.25,1) forwards;
+      animation:coreArrival 3.5s cubic-bezier(.15,.72,.2,1) forwards;
     }
-    .intro-orbit{
-      position:absolute;
-      inset:-18px;
-      border:1px solid rgba(200,163,93,.55);
-      border-radius:50%;
-      transform-style:preserve-3d;
-      box-shadow:0 0 28px rgba(200,163,93,.08);
-    }
-    .intro-orbit.o1{transform:rotateX(66deg) rotateZ(14deg);animation:orbitA 5s linear infinite}
-    .intro-orbit.o2{transform:rotateY(66deg) rotateZ(-18deg);animation:orbitB 6.5s linear infinite}
-    .intro-orbit.o3{inset:10px;border-color:rgba(104,160,207,.28);transform:rotateX(76deg) rotateZ(-28deg);animation:orbitC 4.5s linear infinite reverse}
-    .intro-globe{
-      position:absolute;
-      inset:18%;
-      border-radius:50%;
+    .core-shell{
+      position:absolute;inset:21px;border-radius:50%;
       background:
-        radial-gradient(circle at 34% 28%,rgba(255,255,255,.30),transparent 16%),
-        radial-gradient(circle at 58% 64%,rgba(6,24,45,.98),transparent 60%),
-        linear-gradient(145deg,#153b61,#061428 72%);
+        radial-gradient(circle at 32% 24%,rgba(255,255,255,.28),transparent 11%),
+        radial-gradient(circle at 68% 72%,rgba(0,0,0,.8),transparent 52%),
+        linear-gradient(145deg,#16486f,#07182d 64%,#020914);
       box-shadow:
-        inset -20px -24px 40px rgba(0,0,0,.50),
-        inset 10px 8px 24px rgba(255,255,255,.08),
-        0 28px 60px rgba(0,0,0,.32);
-      transform:translateZ(24px);
+        inset -25px -30px 50px rgba(0,0,0,.58),
+        inset 10px 8px 30px rgba(255,255,255,.07),
+        0 25px 65px rgba(0,0,0,.42);
+      transform:translateZ(28px);
       overflow:hidden;
     }
-    .intro-globe::before{
-      content:"";
-      position:absolute;
-      inset:-8%;
+    .core-shell::before{
+      content:"";position:absolute;inset:-20%;
       background:
-        repeating-radial-gradient(circle at center,transparent 0 16px,rgba(255,255,255,.06) 17px 18px),
-        repeating-linear-gradient(22deg,transparent 0 24px,rgba(255,255,255,.04) 25px 26px);
-      opacity:.45;
-      transform:rotate(-16deg);
+        repeating-radial-gradient(circle at 48% 45%,transparent 0 13px,rgba(255,255,255,.045) 14px 15px),
+        repeating-linear-gradient(28deg,transparent 0 21px,rgba(255,255,255,.035) 22px 23px);
+      transform:rotate(-18deg);
+      opacity:.65;
     }
-    .intro-mark{
-      position:relative;
-      z-index:4;
-      color:#fff;
-      text-align:center;
-      transform:translateZ(70px);
+    .core-shell::after{
+      content:"";position:absolute;width:180%;height:30%;
+      left:-40%;top:33%;
+      background:linear-gradient(90deg,transparent,rgba(221,197,139,.32),rgba(255,255,255,.65),rgba(221,197,139,.22),transparent);
+      filter:blur(7px);
+      transform:rotate(-22deg) translateX(-80%);
+      animation:coreScan 2.4s ease-in-out .7s infinite;
     }
-    .intro-mark strong{
-      display:block;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:58px;
-      line-height:.9;
-      letter-spacing:-3px;
-      font-weight:500;
-      text-shadow:0 8px 24px rgba(0,0,0,.35);
+    .core-orbit{
+      position:absolute;inset:0;border-radius:50%;transform-style:preserve-3d;
+      border:1px solid rgba(200,163,93,.72);
+      box-shadow:0 0 22px rgba(200,163,93,.08);
     }
-    .intro-mark span{
-      display:block;
-      margin-top:13px;
-      color:#dec487;
-      font-size:9px;
-      font-weight:900;
-      letter-spacing:4px;
-      text-transform:uppercase;
+    .core-orbit.a{transform:rotateX(67deg) rotateZ(12deg);animation:orbitOne 3.8s linear infinite}
+    .core-orbit.b{transform:rotateY(67deg) rotateZ(-24deg);border-color:rgba(91,160,211,.48);animation:orbitTwo 5.2s linear infinite}
+    .core-orbit.c{inset:16px;transform:rotateX(76deg) rotateZ(-35deg);border-color:rgba(200,163,93,.34);animation:orbitThree 3.2s linear infinite reverse}
+    .core-dot{
+      position:absolute;width:8px;height:8px;border-radius:50%;
+      background:#f4dda7;box-shadow:0 0 0 7px rgba(200,163,93,.08),0 0 25px rgba(200,163,93,.85);
     }
-    .intro-label{
-      position:absolute;
-      bottom:calc(50% - 205px);
-      left:50%;
-      transform:translateX(-50%);
-      color:#8799af;
-      font-size:9px;
-      font-weight:800;
-      letter-spacing:3.5px;
-      text-transform:uppercase;
-      white-space:nowrap;
-      animation:introLabel 1.4s ease .2s both;
+    .core-dot.d1{left:7%;top:40%}.core-dot.d2{right:8%;top:28%;background:#fff}.core-dot.d3{right:15%;bottom:13%}
+    .intro-wordmark{
+      position:absolute;z-index:10;text-align:center;transform:translateZ(75px);
+      animation:wordmarkIn 2s cubic-bezier(.2,.8,.2,1) .55s both;
     }
-    @keyframes introFade{to{opacity:0;visibility:hidden}}
-    @keyframes introCore{
-      0%{opacity:0;transform:scale(.72) translateY(14px) rotateX(18deg)}
-      18%{opacity:1}
-      72%{opacity:1;transform:scale(1) translateY(0) rotateX(0)}
-      100%{opacity:0;transform:scale(1.16) translateY(-6px) rotateX(-5deg)}
+    .intro-wordmark .uvs{
+      font-family:Georgia,"Times New Roman",serif;font-size:68px;line-height:.82;
+      letter-spacing:-4px;font-weight:500;
+      background:linear-gradient(120deg,#fff 5%,#d8bd7d 48%,#fff 72%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      filter:drop-shadow(0 10px 24px rgba(0,0,0,.38));
     }
-    @keyframes introHalo{
-      0%,100%{transform:scale(.94);opacity:.4}
-      50%{transform:scale(1.04);opacity:.8}
+    .intro-wordmark .name{
+      display:block;margin-top:17px;color:#d9c183;font-size:9px;font-weight:900;
+      letter-spacing:6px;text-transform:uppercase;
     }
-    @keyframes orbitA{to{transform:rotateX(66deg) rotateZ(374deg)}}
-    @keyframes orbitB{to{transform:rotateY(66deg) rotateZ(342deg)}}
-    @keyframes orbitC{to{transform:rotateX(76deg) rotateZ(332deg)}}
-    @keyframes introLabel{
-      from{opacity:0;transform:translate(-50%,8px)}
-      to{opacity:1;transform:translate(-50%,0)}
+    .intro-status{
+      position:absolute;z-index:12;left:50%;bottom:14.5%;transform:translateX(-50%);
+      display:flex;align-items:center;gap:10px;white-space:nowrap;
+      color:#8da2ba;font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;
+      animation:statusIn 1.2s ease 1.2s both;
+    }
+    .intro-status i{width:5px;height:5px;border-radius:50%;background:#d7b777;box-shadow:0 0 13px #d7b777;animation:statusPulse 1s ease-in-out infinite}
+    .intro-corner{
+      position:absolute;color:#52657d;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:800;
+      opacity:.7;
+    }
+    .intro-corner.tl{top:30px;left:34px}.intro-corner.tr{top:30px;right:34px;text-align:right}
+    .intro-corner.bl{bottom:30px;left:34px}.intro-corner.br{bottom:30px;right:34px;text-align:right}
+    @keyframes introExit{to{opacity:0;visibility:hidden;transform:scale(1.025)}}
+    @keyframes noiseMove{0%{transform:translate(0,0)}25%{transform:translate(2%,-1%)}50%{transform:translate(-1%,2%)}75%{transform:translate(1%,1%)}100%{transform:translate(0,0)}}
+    @keyframes starDrift{to{background-position:45px 120px,180px 20px}}
+    @keyframes gridPush{0%,100%{transform:perspective(650px) rotateX(69deg) scale(1.35) translateY(3%)}50%{transform:perspective(650px) rotateX(69deg) scale(1.48) translateY(8%)}}
+    @keyframes auraBreath{0%,100%{transform:scale(.82);opacity:.55}50%{transform:scale(1.14);opacity:1}}
+    @keyframes portalTilt{0%,100%{transform:rotateX(70deg) rotateZ(-2deg) scale(.94)}50%{transform:rotateX(70deg) rotateZ(8deg) scale(1.04)}}
+    @keyframes coreArrival{
+      0%{opacity:0;transform:scale(.18) translateZ(-300px) rotateX(45deg) rotateY(-30deg)}
+      35%{opacity:1}
+      68%{transform:scale(1) translateZ(0) rotateX(0) rotateY(0)}
+      100%{transform:scale(1.02) translateZ(12px) rotateX(-3deg) rotateY(3deg)}
+    }
+    @keyframes coreScan{0%{transform:rotate(-22deg) translateX(-90%)}55%,100%{transform:rotate(-22deg) translateX(90%)}}
+    @keyframes orbitOne{to{transform:rotateX(67deg) rotateZ(372deg)}}
+    @keyframes orbitTwo{to{transform:rotateY(67deg) rotateZ(336deg)}}
+    @keyframes orbitThree{to{transform:rotateX(76deg) rotateZ(325deg)}}
+    @keyframes wordmarkIn{
+      0%{opacity:0;transform:translateZ(20px) translateY(14px);filter:blur(9px)}
+      100%{opacity:1;transform:translateZ(75px) translateY(0);filter:blur(0)}
+    }
+    @keyframes statusIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+    @keyframes statusPulse{50%{opacity:.3;transform:scale(.65)}}
+    @media(max-width:720px){
+      .intro-portal{width:310px;height:310px}.intro-core{width:205px;height:205px}
+      .intro-wordmark .uvs{font-size:54px}.intro-status{bottom:12%;font-size:7px;letter-spacing:2px}
+      .intro-corner{font-size:7px}.intro-corner.tl{top:20px;left:20px}.intro-corner.tr{top:20px;right:20px}
+      .intro-corner.bl{bottom:20px;left:20px}.intro-corner.br{bottom:20px;right:20px}
     }
 
     /* ----- navigation ----- */
@@ -480,17 +504,32 @@
   <div class="glow-cursor" id="glowCursor"></div>
 
   <div class="site-intro" aria-hidden="true">
+    <div class="noise"></div>
+    <div class="intro-stars"></div>
+    <div class="intro-grid"></div>
+    <div class="intro-aura"></div>
+    <div class="intro-portal"></div>
+
     <div class="intro-core">
-      <div class="intro-orbit o1"></div>
-      <div class="intro-orbit o2"></div>
-      <div class="intro-orbit o3"></div>
-      <div class="intro-globe"></div>
-      <div class="intro-mark">
-        <strong>UVS</strong>
-        <span>Ventures</span>
+      <div class="core-orbit a"></div>
+      <div class="core-orbit b"></div>
+      <div class="core-orbit c"></div>
+      <div class="core-dot d1"></div>
+      <div class="core-dot d2"></div>
+      <div class="core-dot d3"></div>
+      <div class="core-shell"></div>
+      <div class="intro-wordmark">
+        <div class="uvs">UVS</div>
+        <span class="name">Ventures</span>
       </div>
     </div>
-    <div class="intro-label">Business Development • Growth • Opportunity</div>
+
+    <div class="intro-status"><i></i> Global business intelligence / online</div>
+    <div class="intro-corner tl">UVS / 001</div>
+    <div class="intro-corner tr">Global<br>Business Development</div>
+    <div class="intro-corner bl">Market • People • Opportunity</div>
+    <div class="intro-corner br">© 2026 UVS Ventures</div>
+    <div class="intro-vignette"></div>
   </div>
 
   <header>
