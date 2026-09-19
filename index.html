@@ -202,33 +202,26 @@
     }
 
 
-    /* ----- founder portrait ----- */
-    .founder-portrait{
-      position:absolute;top:30px;right:34px;width:112px;height:112px;
-      border-radius:28px;overflow:hidden;z-index:12;
-      border:1px solid rgba(255,255,255,.52);
-      background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(200,163,93,.12));
-      box-shadow:0 22px 55px rgba(3,14,29,.28),0 0 0 7px rgba(255,255,255,.07),inset 0 1px 0 rgba(255,255,255,.65);
-      transform:perspective(900px) rotateY(-8deg) rotateZ(1deg);
-      transition:transform .45s ease,box-shadow .45s ease;
-      animation:founderFloat 5s ease-in-out infinite;
-    }
-    .founder-portrait::before{
-      content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
-      background:linear-gradient(135deg,rgba(255,255,255,.20),transparent 32%,transparent 68%,rgba(200,163,93,.14));
-    }
-    .founder-portrait img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 26%;filter:saturate(1.03) contrast(1.03)}
-    .founder-portrait:hover{transform:perspective(900px) rotateY(0) rotateZ(0) translateY(-4px) scale(1.04);box-shadow:0 30px 70px rgba(3,14,29,.34),0 0 0 7px rgba(200,163,93,.10)}
-    .founder-caption{
-      position:absolute;top:151px;right:34px;z-index:12;text-align:right;
-      color:#75879d;font-size:8px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
-      opacity:.82
-    }
-    @keyframes founderFloat{0%,100%{translate:0 0}50%{translate:0 -5px}}
-    @media(max-width:720px){
-      .founder-portrait{top:20px;right:20px;width:82px;height:82px;border-radius:21px}
-      .founder-caption{top:112px;right:20px;font-size:7px}
-    }
+
+    /* ----- founder feature ----- */
+    .founder-feature{position:relative;padding:120px 0;background:linear-gradient(135deg,#061225 0%,#0b1b33 58%,#08182c 100%);overflow:hidden}
+    .founder-feature::before{content:"";position:absolute;width:620px;height:620px;right:-220px;top:-180px;border-radius:50%;background:radial-gradient(circle,rgba(200,163,93,.20),transparent 68%);filter:blur(2px)}
+    .founder-layout{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);gap:72px;align-items:center}
+    .founder-photo-wrap{position:relative;min-height:620px;border-radius:34px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#071326;box-shadow:0 40px 100px rgba(0,0,0,.42);transform:perspective(1200px) rotateY(3deg);transition:transform .5s ease,box-shadow .5s ease}
+    .founder-photo-wrap:hover{transform:perspective(1200px) rotateY(0deg) translateY(-5px);box-shadow:0 48px 120px rgba(0,0,0,.5)}
+    .founder-photo-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(2,7,17,.68) 100%);pointer-events:none}
+    .founder-photo{width:100%;height:100%;min-height:620px;display:block;object-fit:cover;object-position:center center;filter:saturate(1.02) contrast(1.03)}
+    .founder-photo-meta{position:absolute;left:34px;right:34px;bottom:30px;z-index:2;display:flex;align-items:end;justify-content:space-between;gap:20px}
+    .founder-photo-meta strong{display:block;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:30px;font-weight:500}
+    .founder-photo-meta span{display:block;color:#d8bd7d;font-size:9px;font-weight:900;letter-spacing:2.4px;text-transform:uppercase;margin-top:7px}
+    .founder-copy .eyebrow{color:#d8bd7d}
+    .founder-copy h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(48px,5vw,76px);line-height:.98;letter-spacing:-2px;color:#fff;font-weight:500}
+    .founder-copy h2 em{color:#d8bd7d;font-style:normal}
+    .founder-copy p{color:#aebbd0;font-size:17px;line-height:1.8;max-width:590px;margin-top:24px}
+    .founder-quote{margin-top:34px;padding:26px 0 26px 24px;border-left:2px solid var(--gold);color:#ead9b3;font-family:Georgia,"Times New Roman",serif;font-size:22px;font-style:italic;line-height:1.5}
+    .founder-signoff{margin-top:24px;color:#75879d;font-size:10px;font-weight:900;letter-spacing:2.4px;text-transform:uppercase}
+    @media(max-width:900px){.founder-layout{grid-template-columns:1fr;gap:42px}.founder-photo-wrap,.founder-photo{min-height:520px}.founder-copy{max-width:760px}}
+    @media(max-width:720px){.founder-feature{padding:82px 0}.founder-layout{gap:32px}.founder-photo-wrap,.founder-photo{min-height:420px;border-radius:25px}.founder-photo-meta{left:22px;right:22px;bottom:22px}.founder-photo-meta strong{font-size:24px}.founder-copy h2{font-size:48px}.founder-copy p{font-size:15px}.founder-quote{font-size:19px}}
 
     /* ----- navigation ----- */
     header{
@@ -632,6 +625,28 @@
             </div>
             <div class="panel-foot"><span>Market research</span><span>Account intelligence</span><span>Commercial execution</span></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="founder-feature" id="founder">
+      <div class="container founder-layout">
+        <div class="founder-photo-wrap reveal" data-tilt>
+          <img class="founder-photo" src="data:image/jpeg;base64,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" alt="Yuvraj Gagan Singh — Founder and CEO of UVS Ventures">
+          <div class="founder-photo-meta">
+            <div><strong>Yuvraj Gagan Singh</strong><span>Founder &amp; CEO · UVS Ventures</span></div>
+            <span>Operating Globally</span>
+          </div>
+        </div>
+        <div class="founder-copy reveal">
+          <div class="eyebrow">Leadership</div>
+          <h2>Built around a <em>global mindset.</em></h2>
+          <p>I founded UVS with a simple belief — global opportunities should be accessible, actionable, and meaningful. Our focus is on creating real connections, real growth, and long-term value for businesses across markets.</p>
+          <p>UVS combines commercial research, business development, partnerships and digital execution to help companies move from possibility to a clear next step.</p>
+          <div class="founder-quote">“Opportunities don’t just happen, they are built with the right people.”</div>
+          <div class="founder-signoff">Yuvraj Gagan Singh · Founder &amp; CEO, UVS Ventures</div>
+          <div class="actions" style="margin-top:32px"><a class="btn gold" href="#contact">Work with UVS →</a></div>
         </div>
       </div>
     </section>
