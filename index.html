@@ -773,10 +773,15 @@
           <p>A market. A partnership. A pipeline. A website. Give us the context and we will explore the right next step.</p>
         </div>
         <form class="contact-form reveal" action="https://formsubmit.co/partnership@uvsventures.com" method="POST" onsubmit="return prepareContactForm(event)">
+          <input type="hidden" name="_subject" id="mailSubject" value="New UVS Ventures enquiry">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="true">
+          <input type="hidden" name="_next" value="https://uvsventures.com/#contact">
+          <input type="hidden" name="_autoresponse" value="Thank you for contacting UVS Ventures. We have received your enquiry and will get back to you shortly.">
           <input class="input" id="name" name="Name" required placeholder="Your name">
           <input class="input" id="company" name="Company" placeholder="Company">
           <input class="input" id="email" name="Email" type="email" required placeholder="Work email">
-          <select class="select" id="need">
+          <select class="select" id="need" name="Enquiry Type">
             <option value="B2B Growth / Market Expansion">B2B Growth / Market Expansion</option>
             <option value="Lead Generation / Partnerships">Lead Generation / Partnerships</option>
             <option value="Commercial Research">Commercial Research</option>
