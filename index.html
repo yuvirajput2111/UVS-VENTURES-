@@ -612,7 +612,7 @@
   <header>
     <div class="container nav">
       <a href="#home" class="logo">UVS VENTURES<span>BUSINESS DEVELOPMENT</span></a>
-      <button class="menu" aria-label="Open menu" onclick="toggleMenu()">☰</button>
+      <button class="menu" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu()">☰</button>
       <nav id="nav">
         <a href="#about">About</a>
         <a href="#services">Services</a>
@@ -855,6 +855,7 @@
     (function(){
       var introVoice=document.getElementById('introVoice');
       var spoken=false;
+      var introStarted=performance.now();
       var synth=window.speechSynthesis;
       if(!synth || !window.SpeechSynthesisUtterance){
         return;
@@ -871,7 +872,7 @@
       }
 
       function speakIntro(fromGesture){
-        if(spoken)return;
+        if(spoken || performance.now()-introStarted>6800)return;
         spoken=true;
         try{
           synth.cancel();
@@ -898,7 +899,10 @@
 
       // Try automatically at the start. Browsers may block audible autoplay;
       // a first tap/click then unlocks the same voice without changing the intro.
-      setTimeout(function(){speakIntro(false);},900);
+      setTimeout(function(){
+        speakIntro(false);
+        if(!spoken && introVoice) introVoice.classList.add('show');
+      },900);
 
       if(typeof synth.onvoiceschanged!=='undefined'){
         synth.onvoiceschanged=function(){ if(!spoken) speakIntro(false); };
@@ -913,7 +917,7 @@
       }
 
       window.addEventListener('pointerdown',function(){
-        if(!spoken) speakIntro(true);
+        if(!spoken && performance.now()-introStarted<6800) speakIntro(true);
       },{passive:true,once:false});
     })();
 
