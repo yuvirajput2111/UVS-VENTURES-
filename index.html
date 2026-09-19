@@ -167,17 +167,6 @@
     }
     .intro-status i{width:5px;height:5px;border-radius:50%;background:#d7b777;box-shadow:0 0 13px #d7b777;animation:statusPulse 1s ease-in-out infinite}
 
-    .intro-voice{
-      position:absolute;z-index:20;left:50%;bottom:8.2%;transform:translateX(-50%);
-      display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid rgba(200,163,93,.28);
-      border-radius:999px;background:rgba(2,7,17,.46);backdrop-filter:blur(12px);
-      color:#d9c183;font-size:8px;font-weight:900;letter-spacing:2.2px;text-transform:uppercase;
-      opacity:0;pointer-events:none;transition:opacity .35s ease;
-    }
-    .intro-voice.show{opacity:1;pointer-events:auto;cursor:pointer}
-    .intro-voice::before{content:"";width:6px;height:6px;border-radius:50%;background:#d8bd7d;box-shadow:0 0 12px rgba(216,189,125,.9)}
-    @media(max-width:720px){.intro-voice{bottom:7%;font-size:7px;padding:8px 11px}}
-
     .intro-corner{
       position:absolute;color:#52657d;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:800;
       opacity:.7;
@@ -850,16 +839,15 @@
       }
     },{passive:true});
 
-    // Cinematic intro voice. Uses the device's available English voice and
-    // deliberately slows the delivery for a low, calm, authoritative feel.
+    // Cinematic intro voice — automatic, with no on-screen tap button.
+    // Browsers can restrict audible autoplay; this code makes the strongest
+    // possible automatic attempt and retries as voices become available.
     (function(){
-      var introVoice=document.getElementById('introVoice');
       var spoken=false;
       var introStarted=performance.now();
       var synth=window.speechSynthesis;
-      if(!synth || !window.SpeechSynthesisUtterance){
-        return;
-      }
+
+      if(!synth || !window.SpeechSynthesisUtterance) return;
 
       function pickVoice(){
         var voices=synth.getVoices();
@@ -871,9 +859,8 @@
         return preferred || english.find(function(v){return v.default;}) || english[0] || voices[0];
       }
 
-      function speakIntro(fromGesture){
-        if(spoken || performance.now()-introStarted>6800)return;
-        spoken=true;
+      function speakIntro(){
+        if(spoken || performance.now()-introStarted>6800) return;
         try{
           synth.cancel();
           var u=new SpeechSynthesisUtterance('Welcome... to UVS Ventures.');
@@ -883,42 +870,38 @@
           u.volume=1;
           var v=pickVoice();
           if(v) u.voice=v;
-          u.onstart=function(){
-            if(introVoice) introVoice.classList.remove('show');
-          };
+          u.onstart=function(){spoken=true;};
+          u.onend=function(){spoken=true;};
           u.onerror=function(){
+            // Keep retrying automatically while the cinematic intro is active.
             spoken=false;
-            if(introVoice) introVoice.classList.add('show');
           };
           synth.speak(u);
-        }catch(err){
-          spoken=false;
-          if(introVoice) introVoice.classList.add('show');
-        }
+        }catch(err){}
       }
 
-      // Try automatically at the start. Browsers may block audible autoplay;
-      // a first tap/click then unlocks the same voice without changing the intro.
-      setTimeout(function(){
-        speakIntro(false);
-        if(!spoken && introVoice) introVoice.classList.add('show');
-      },900);
+      // Immediate automatic attempt.
+      speakIntro();
 
+      // Voices often load asynchronously, especially on Chrome/Windows.
       if(typeof synth.onvoiceschanged!=='undefined'){
-        synth.onvoiceschanged=function(){ if(!spoken) speakIntro(false); };
+        synth.onvoiceschanged=function(){
+          if(!spoken) speakIntro();
+        };
       }
 
-      if(introVoice){
-        introVoice.addEventListener('click',function(e){
-          e.preventDefault();
-          e.stopPropagation();
-          speakIntro(true);
-        });
-      }
+      // Additional automatic retries during the opening; no visible control.
+      [250,700,1200,1800,2600].forEach(function(ms){
+        setTimeout(function(){
+          if(!spoken) speakIntro();
+        },ms);
+      });
 
+      // If the browser unlocks speech after the first page interaction,
+      // use that interaction silently — there is no tap button.
       window.addEventListener('pointerdown',function(){
-        if(!spoken && performance.now()-introStarted<6800) speakIntro(true);
-      },{passive:true,once:false});
+        if(!spoken && performance.now()-introStarted<6800) speakIntro();
+      },{passive:true});
     })();
 
     // Subtle cursor spotlight
