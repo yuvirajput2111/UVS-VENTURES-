@@ -122,22 +122,23 @@
       z-index:9999;
       pointer-events:none;
       overflow:hidden;
-      background:rgba(255,255,255,.94);
+      background:linear-gradient(180deg,rgba(246,250,252,.96),rgba(255,255,255,.92));
       opacity:1;
-      animation:introFade .55s ease 2.25s forwards;
+      animation:introFade .6s ease 2.55s forwards;
     }
     .site-intro-fish .fish{
       position:absolute;
       left:-300px;
       top:50%;
-      width:min(430px,42vw);
-      min-width:230px;
+      width:min(500px,48vw);
+      min-width:250px;
       transform:translateY(-50%) perspective(1200px) rotateY(-8deg) rotateZ(-2deg);
       transform-origin:center;
-      animation:introSwim 2.8s cubic-bezier(.18,.72,.22,1) forwards;
+      animation:introSwim 3.05s cubic-bezier(.18,.72,.22,1) forwards;
       filter:
-        drop-shadow(0 24px 26px rgba(11,27,51,.20))
-        drop-shadow(0 6px 10px rgba(0,0,0,.16));
+        drop-shadow(0 28px 34px rgba(11,27,51,.16))
+        drop-shadow(0 5px 14px rgba(22,75,120,.16))
+        saturate(1.06) contrast(1.04);
       will-change:transform,left,opacity;
     }
     .site-intro-fish .fish img{
@@ -224,7 +225,7 @@
   <div class="fish">
     <span class="bubbles"></span>
     <img
-      src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Transparent_killifish.png"
+      src="https://static.vecteezy.com/system/resources/previews/019/988/495/original/beautiful-betta-fish-on-transparent-background-png.png"
       alt=""
       width="711"
       height="359"
