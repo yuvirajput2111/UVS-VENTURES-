@@ -37,39 +37,144 @@
     button{font:inherit}
     .container{width:min(1180px,92%);margin:auto}
 
-    /* ----- opening fish: preserved ----- */
-    .site-intro-fish{
-      position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;
-      background:linear-gradient(180deg,rgba(246,250,252,.96),rgba(255,255,255,.92));
-      opacity:1;animation:introFade .6s ease 2.55s forwards;
+    /* ----- professional opening identity ----- */
+    .site-intro{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 48%,rgba(32,76,120,.28),transparent 24%),
+        radial-gradient(circle at 50% 50%,rgba(200,163,93,.08),transparent 40%),
+        linear-gradient(145deg,#030b17 0%,#07172b 52%,#020712 100%);
+      opacity:1;
+      animation:introFade .85s cubic-bezier(.6,0,.2,1) 2.2s forwards;
     }
-    .site-intro-fish .fish{
-      position:absolute;left:-300px;top:50%;width:min(500px,48vw);min-width:250px;
-      transform:translateY(-50%) perspective(1200px) rotateY(-8deg) rotateZ(-2deg);
-      transform-origin:center;animation:introSwim 3.05s cubic-bezier(.18,.72,.22,1) forwards;
-      filter:drop-shadow(0 28px 34px rgba(11,27,51,.16)) drop-shadow(0 5px 14px rgba(22,75,120,.16)) saturate(1.06) contrast(1.04);
-      will-change:transform,left,opacity;
+    .site-intro::before{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      background:
+        linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+      background-size:60px 60px;
+      transform:perspective(800px) rotateX(68deg) translateY(12%);
+      opacity:.45;
     }
-    .site-intro-fish .fish img{width:100%;height:auto;display:block;object-fit:contain;filter:saturate(1.08) contrast(1.05)}
-    .site-intro-fish .bubbles{
-      position:absolute;width:11px;height:11px;border:1px solid rgba(185,151,91,.42);border-radius:50%;
-      left:4%;top:40%;box-shadow:26px -24px 0 -2px rgba(185,151,91,.20),54px -48px 0 -4px rgba(185,151,91,.12);
-      animation:bubbleFloat 2.1s ease-out infinite;
+    .site-intro::after{
+      content:"";
+      position:absolute;
+      width:560px;
+      height:560px;
+      border-radius:50%;
+      border:1px solid rgba(200,163,93,.16);
+      box-shadow:
+        0 0 0 34px rgba(200,163,93,.035),
+        0 0 0 76px rgba(200,163,93,.018);
+      animation:introHalo 4.8s ease-in-out infinite;
     }
-    @keyframes introSwim{
-      0%{left:-300px;transform:translateY(-50%) perspective(1200px) rotateY(-12deg) rotateZ(-2deg) scale(.86);opacity:0}
-      10%{opacity:1}
-      28%{transform:translateY(calc(-50% - 16px)) perspective(1200px) rotateY(2deg) rotateZ(0deg) scale(1.01)}
-      48%{transform:translateY(calc(-50% + 10px)) perspective(1200px) rotateY(-2deg) rotateZ(1.2deg) scale(1)}
-      68%{transform:translateY(calc(-50% - 7px)) perspective(1200px) rotateY(2deg) rotateZ(-.8deg) scale(1.01)}
-      86%{left:88vw;transform:translateY(calc(-50% + 4px)) perspective(1200px) rotateY(5deg) rotateZ(1.5deg) scale(.98);opacity:1}
-      100%{left:118vw;transform:translateY(-50%) perspective(1200px) rotateY(7deg) rotateZ(2deg) scale(.90);opacity:0}
+    .intro-core{
+      position:relative;
+      width:260px;
+      height:260px;
+      display:grid;
+      place-items:center;
+      transform-style:preserve-3d;
+      animation:introCore 2.6s cubic-bezier(.2,.75,.25,1) forwards;
+    }
+    .intro-orbit{
+      position:absolute;
+      inset:-18px;
+      border:1px solid rgba(200,163,93,.55);
+      border-radius:50%;
+      transform-style:preserve-3d;
+      box-shadow:0 0 28px rgba(200,163,93,.08);
+    }
+    .intro-orbit.o1{transform:rotateX(66deg) rotateZ(14deg);animation:orbitA 5s linear infinite}
+    .intro-orbit.o2{transform:rotateY(66deg) rotateZ(-18deg);animation:orbitB 6.5s linear infinite}
+    .intro-orbit.o3{inset:10px;border-color:rgba(104,160,207,.28);transform:rotateX(76deg) rotateZ(-28deg);animation:orbitC 4.5s linear infinite reverse}
+    .intro-globe{
+      position:absolute;
+      inset:18%;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 34% 28%,rgba(255,255,255,.30),transparent 16%),
+        radial-gradient(circle at 58% 64%,rgba(6,24,45,.98),transparent 60%),
+        linear-gradient(145deg,#153b61,#061428 72%);
+      box-shadow:
+        inset -20px -24px 40px rgba(0,0,0,.50),
+        inset 10px 8px 24px rgba(255,255,255,.08),
+        0 28px 60px rgba(0,0,0,.32);
+      transform:translateZ(24px);
+      overflow:hidden;
+    }
+    .intro-globe::before{
+      content:"";
+      position:absolute;
+      inset:-8%;
+      background:
+        repeating-radial-gradient(circle at center,transparent 0 16px,rgba(255,255,255,.06) 17px 18px),
+        repeating-linear-gradient(22deg,transparent 0 24px,rgba(255,255,255,.04) 25px 26px);
+      opacity:.45;
+      transform:rotate(-16deg);
+    }
+    .intro-mark{
+      position:relative;
+      z-index:4;
+      color:#fff;
+      text-align:center;
+      transform:translateZ(70px);
+    }
+    .intro-mark strong{
+      display:block;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:58px;
+      line-height:.9;
+      letter-spacing:-3px;
+      font-weight:500;
+      text-shadow:0 8px 24px rgba(0,0,0,.35);
+    }
+    .intro-mark span{
+      display:block;
+      margin-top:13px;
+      color:#dec487;
+      font-size:9px;
+      font-weight:900;
+      letter-spacing:4px;
+      text-transform:uppercase;
+    }
+    .intro-label{
+      position:absolute;
+      bottom:calc(50% - 205px);
+      left:50%;
+      transform:translateX(-50%);
+      color:#8799af;
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:3.5px;
+      text-transform:uppercase;
+      white-space:nowrap;
+      animation:introLabel 1.4s ease .2s both;
     }
     @keyframes introFade{to{opacity:0;visibility:hidden}}
-    @keyframes bubbleFloat{
-      0%{transform:translate3d(0,0,0);opacity:.10}
-      50%{transform:translate3d(-5px,-18px,0);opacity:.62}
-      100%{transform:translate3d(-8px,-38px,0);opacity:0}
+    @keyframes introCore{
+      0%{opacity:0;transform:scale(.72) translateY(14px) rotateX(18deg)}
+      18%{opacity:1}
+      72%{opacity:1;transform:scale(1) translateY(0) rotateX(0)}
+      100%{opacity:0;transform:scale(1.16) translateY(-6px) rotateX(-5deg)}
+    }
+    @keyframes introHalo{
+      0%,100%{transform:scale(.94);opacity:.4}
+      50%{transform:scale(1.04);opacity:.8}
+    }
+    @keyframes orbitA{to{transform:rotateX(66deg) rotateZ(374deg)}}
+    @keyframes orbitB{to{transform:rotateY(66deg) rotateZ(342deg)}}
+    @keyframes orbitC{to{transform:rotateX(76deg) rotateZ(332deg)}}
+    @keyframes introLabel{
+      from{opacity:0;transform:translate(-50%,8px)}
+      to{opacity:1;transform:translate(-50%,0)}
     }
 
     /* ----- navigation ----- */
@@ -346,7 +451,7 @@
     @keyframes ping{0%{transform:scale(.55);opacity:.65}75%{transform:scale(1.4);opacity:0}100%{opacity:0}}
 
     @media(prefers-reduced-motion:reduce){
-      html{scroll-behavior:auto}.site-intro-fish{display:none}.orbital,.ring,.hero::after,.stage::before,.experience::before,.about-panel::before{animation:none!important}
+      html{scroll-behavior:auto}.site-intro{display:none}.orbital,.ring,.hero::after,.stage::before,.experience::before,.about-panel::before{animation:none!important}
       .reveal{opacity:1!important;transform:none!important}.tilt,.browser{transform:none!important}
     }
     @media(max-width:920px){
@@ -374,12 +479,18 @@
 <body>
   <div class="glow-cursor" id="glowCursor"></div>
 
-  <!-- The opening fish is intentionally preserved. -->
-  <div class="site-intro-fish" aria-hidden="true">
-    <div class="fish">
-      <span class="bubbles"></span>
-      <img src="https://cdn.pixabay.com/photo/2018/05/28/11/53/fish-3435849_1280.png" alt="" width="711" height="359" loading="eager" decoding="async" referrerpolicy="no-referrer">
+  <div class="site-intro" aria-hidden="true">
+    <div class="intro-core">
+      <div class="intro-orbit o1"></div>
+      <div class="intro-orbit o2"></div>
+      <div class="intro-orbit o3"></div>
+      <div class="intro-globe"></div>
+      <div class="intro-mark">
+        <strong>UVS</strong>
+        <span>Ventures</span>
+      </div>
     </div>
+    <div class="intro-label">Business Development • Growth • Opportunity</div>
   </div>
 
   <header>
