@@ -116,58 +116,70 @@
     footer p,footer a{color:#b9c2cf;font-size:14px}
     footer a{display:block;margin:6px 0}
     .copy{border-top:1px solid #24344b;margin-top:30px;padding-top:18px;color:#8995a6;font-size:12px}
-    .hero{position:relative;overflow:hidden;}
-    .hero-content{position:relative;z-index:2;}
-    .fish-scene{
-      position:absolute;
+    .site-intro-fish{
+      position:fixed;
       inset:0;
+      z-index:9999;
       pointer-events:none;
-      z-index:1;
       overflow:hidden;
-      opacity:.82;
+      background:rgba(255,255,255,.92);
+      opacity:1;
+      animation:introFade .55s ease 2.25s forwards;
     }
-    .fish{
+    .site-intro-fish .fish{
       position:absolute;
-      width:118px;
-      height:58px;
-      top:24%;
-      right:-150px;
-      animation:fishSwim 15s linear infinite;
-      filter:drop-shadow(0 14px 18px rgba(11,27,51,.10));
+      left:-180px;
+      top:50%;
+      width:min(260px,32vw);
+      min-width:150px;
+      transform:translateY(-50%);
+      animation:introSwim 2.6s cubic-bezier(.2,.65,.35,1) forwards;
+      filter:drop-shadow(0 18px 28px rgba(11,27,51,.16));
     }
-    .fish svg{width:100%;height:100%;display:block;}
-    .fish .fin{transform-origin:center;animation:finPulse 1.2s ease-in-out infinite;}
-    .fish .tail{transform-origin:center right;animation:tailWave .9s ease-in-out infinite;}
-    .fish-bubbles{
+    .site-intro-fish .fish svg{width:100%;height:auto;display:block;}
+    .site-intro-fish .tail{
+      transform-origin:center right;
+      animation:tailWave .72s ease-in-out infinite;
+    }
+    .site-intro-fish .fin{
+      transform-origin:center;
+      animation:finPulse 1.0s ease-in-out infinite;
+    }
+    .site-intro-fish .bubbles{
       position:absolute;
-      width:10px;height:10px;
-      border:1px solid rgba(185,151,91,.45);
+      width:12px;height:12px;
+      border:1px solid rgba(185,151,91,.5);
       border-radius:50%;
-      right:calc(100% + 8px);
-      top:35%;
+      left:-15px;
+      top:42%;
       box-shadow:
-        18px -16px 0 -2px rgba(185,151,91,.20),
-        34px -32px 0 -4px rgba(185,151,91,.14);
-      animation:bubbleFloat 3.6s ease-in-out infinite;
+        24px -22px 0 -2px rgba(185,151,91,.24),
+        48px -44px 0 -4px rgba(185,151,91,.14);
+      animation:bubbleFloat 2.2s ease-out infinite;
     }
-    @keyframes fishSwim{
-      0%{transform:translate3d(0,0,0) scaleX(-1);}
-      18%{transform:translate3d(-18vw,-8px,0) scaleX(-1);}
-      44%{transform:translate3d(-48vw,18px,0) scaleX(-1);}
-      72%{transform:translate3d(-78vw,-10px,0) scaleX(-1);}
-      100%{transform:translate3d(-118vw,8px,0) scaleX(-1);}
+    @keyframes introSwim{
+      0%{left:-180px;transform:translateY(-50%) scale(.82) rotate(-2deg);opacity:0;}
+      10%{opacity:1;}
+      48%{transform:translateY(calc(-50% - 8px)) scale(1) rotate(0);}
+      88%{left:88vw;transform:translateY(calc(-50% + 8px)) scale(.96) rotate(2deg);opacity:1;}
+      100%{left:118vw;transform:translateY(-50%) scale(.88) rotate(2deg);opacity:0;}
     }
+    @keyframes introFade{to{opacity:0;visibility:hidden;}}
     @keyframes tailWave{
       0%,100%{transform:rotate(0deg);}
-      50%{transform:rotate(-7deg);}
+      50%{transform:rotate(-8deg);}
     }
     @keyframes finPulse{
       0%,100%{transform:rotate(0deg) translateY(0);}
       50%{transform:rotate(-7deg) translateY(-1px);}
     }
     @keyframes bubbleFloat{
-      0%,100%{transform:translate3d(0,0,0);opacity:.35;}
-      50%{transform:translate3d(-6px,-12px,0);opacity:.8;}
+      0%{transform:translate3d(0,0,0);opacity:.15;}
+      50%{transform:translate3d(-5px,-18px,0);opacity:.72;}
+      100%{transform:translate3d(-8px,-38px,0);opacity:0;}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .site-intro-fish{display:none;}
     }
     @media(max-width:800px){
       .fish{width:92px;height:46px;top:16%;opacity:.70;}
@@ -194,6 +206,33 @@
   </style>
 </head>
 <body>
+<div class="site-intro-fish" aria-hidden="true">
+  <div class="fish">
+    <span class="bubbles"></span>
+    <svg viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg" role="presentation">
+      <defs>
+        <linearGradient id="introFishBody" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#17365d"/>
+          <stop offset="62%" stop-color="#0b1b33"/>
+          <stop offset="100%" stop-color="#061224"/>
+        </linearGradient>
+        <linearGradient id="introFishFin" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#d9be83"/>
+          <stop offset="100%" stop-color="#9b7a3e"/>
+        </linearGradient>
+      </defs>
+      <path class="tail" d="M39 58 C14 27 8 24 5 30 C11 45 11 71 5 90 C11 96 24 89 39 61 Z" fill="url(#introFishFin)" opacity=".95"/>
+      <path d="M38 58 C45 26 92 9 147 21 C181 28 202 46 208 59 C202 72 181 92 147 99 C92 111 45 90 38 62 Z" fill="url(#introFishBody)"/>
+      <path class="fin" d="M93 26 C101 5 114 3 124 8 C118 23 114 31 108 38 Z" fill="url(#introFishFin)" opacity=".92"/>
+      <path class="fin" d="M105 82 C116 104 132 108 142 101 C135 85 127 77 117 73 Z" fill="url(#introFishFin)" opacity=".82"/>
+      <path d="M67 38 C83 26 107 22 133 26" fill="none" stroke="rgba(217,190,131,.7)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M66 76 C84 87 108 91 132 87" fill="none" stroke="rgba(217,190,131,.35)" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="169" cy="48" r="5.5" fill="#f8f6ee"/>
+      <circle cx="171" cy="48" r="2.2" fill="#0b1b33"/>
+      <path d="M203 57 C220 60 226 67 231 72" fill="none" stroke="rgba(185,151,91,.65)" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+</div>
 
 <header>
   <div class="container nav">
@@ -211,34 +250,6 @@
 
 <main>
   <section class="hero" id="home">
-    <div class="fish-scene" aria-hidden="true">
-      <div class="fish">
-        <span class="fish-bubbles"></span>
-        <svg viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg" role="presentation">
-          <defs>
-            <linearGradient id="fishBodyGradient" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#17365d"/>
-              <stop offset="62%" stop-color="#0b1b33"/>
-              <stop offset="100%" stop-color="#061224"/>
-            </linearGradient>
-            <linearGradient id="finGradient" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#d9be83"/>
-              <stop offset="100%" stop-color="#9b7a3e"/>
-            </linearGradient>
-          </defs>
-          <path class="tail" d="M39 58 C14 27 8 24 5 30 C11 45 11 71 5 90 C11 96 24 89 39 61 Z" fill="url(#finGradient)" opacity=".95"/>
-          <path d="M38 58 C45 26 92 9 147 21 C181 28 202 46 208 59 C202 72 181 92 147 99 C92 111 45 90 38 62 Z" fill="url(#fishBodyGradient)"/>
-          <path class="fin" d="M93 26 C101 5 114 3 124 8 C118 23 114 31 108 38 Z" fill="url(#finGradient)" opacity=".92"/>
-          <path class="fin" d="M105 82 C116 104 132 108 142 101 C135 85 127 77 117 73 Z" fill="url(#finGradient)" opacity=".82"/>
-          <path d="M67 38 C83 26 107 22 133 26" fill="none" stroke="rgba(217,190,131,.7)" stroke-width="3" stroke-linecap="round"/>
-          <path d="M66 76 C84 87 108 91 132 87" fill="none" stroke="rgba(217,190,131,.35)" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="169" cy="48" r="5.5" fill="#f8f6ee"/>
-          <circle cx="171" cy="48" r="2.2" fill="#0b1b33"/>
-          <path d="M203 57 C220 60 226 67 231 72" fill="none" stroke="rgba(185,151,91,.65)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M151 93 C173 95 188 89 201 80" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="5" stroke-linecap="round"/>
-        </svg>
-      </div>
-    </div>
     <div class="container hero-content">
       <div class="eyebrow">International B2B Business Development</div>
       <h1>Building connections.<br><em>Creating opportunities.</em></h1>
