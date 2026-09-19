@@ -721,10 +721,10 @@
           <h2>Tell us what you are trying to move.</h2>
           <p>A market. A partnership. A pipeline. A website. Give us the context and we will explore the right next step.</p>
         </div>
-        <form class="contact-form reveal" onsubmit="submitContact(event)">
-          <input class="input" id="name" required placeholder="Your name">
-          <input class="input" id="company" placeholder="Company">
-          <input class="input" id="email" type="email" required placeholder="Work email">
+        <form class="contact-form reveal" action="https://formsubmit.co/partnership@uvsventures.com" method="POST" onsubmit="return prepareContactForm(event)">
+          <input class="input" id="name" name="Name" required placeholder="Your name">
+          <input class="input" id="company" name="Company" placeholder="Company">
+          <input class="input" id="email" name="Email" type="email" required placeholder="Work email">
           <select class="select" id="need">
             <option value="B2B Growth / Market Expansion">B2B Growth / Market Expansion</option>
             <option value="Lead Generation / Partnerships">Lead Generation / Partnerships</option>
@@ -732,10 +732,14 @@
             <option value="Website / Digital Experience">Website / Digital Experience</option>
             <option value="Other">Other</option>
           </select>
-          <textarea class="input textarea" id="message" placeholder="What are you trying to achieve?"></textarea>
+          <textarea class="input textarea" id="message" name="Message" placeholder="What are you trying to achieve?"></textarea>
           <div style="grid-column:1/-1;display:flex;justify-content:center;margin-top:6px"><button class="btn" type="submit">Start the conversation ↗</button></div>
         </form>
-        <div class="contact-note reveal">Or email directly: partnership@uvsventures.com • +91 8887728155</div>
+        <div class="actions reveal" style="justify-content:center;margin-top:18px">
+          <a class="outline" href="https://wa.me/918887728155?text=Hello%20UVS%20Ventures%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener">Chat with UVS on WhatsApp ↗</a>
+          <a class="outline" href="mailto:partnership@uvsventures.com?subject=UVS%20Ventures%20Enquiry">Email UVS directly ↗</a>
+        </div>
+        <div class="contact-note reveal">Email: partnership@uvsventures.com • WhatsApp: +91 8887728155</div>
       </div>
     </section>
   </main>
@@ -813,19 +817,16 @@
       stage.addEventListener('pointerleave',function(){orbital.style.transform='';});
     }
 
-    // Contact form opens a prefilled email; nothing is sent without the visitor's own email client action.
-    function submitContact(e){
-      e.preventDefault();
-      var name=document.getElementById('name').value.trim();
-      var company=document.getElementById('company').value.trim();
+    // FormSubmit handles delivery so visitors do not need their own mail app.
+    function prepareContactForm(e){
       var email=document.getElementById('email').value.trim();
-      var need=document.getElementById('need').value;
-      var message=document.getElementById('message').value.trim();
-      var subject=encodeURIComponent('New UVS Ventures enquiry — '+need);
-      var body=encodeURIComponent(
-        'Name: '+name+'\nCompany: '+company+'\nEmail: '+email+'\nNeed: '+need+'\n\nMessage:\n'+message
-      );
-      window.location.href='mailto:partnership@uvsventures.com?subject='+subject+'&body='+body;
+      if(!email || !email.includes('@')){
+        e.preventDefault();
+        alert('Please enter a valid email address.');
+        return false;
+      }
+      document.getElementById('mailSubject').value='New UVS Ventures enquiry — '+document.getElementById('need').value;
+      return true;
     }
   </script>
 </body>
