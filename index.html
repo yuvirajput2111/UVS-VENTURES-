@@ -135,55 +135,80 @@
     @media(prefers-reduced-motion:reduce){.signal-orbit,.signal-halo,.signal-core::before,.signal-beam{animation:none}.signal-core{transition:none}}
     /* ----- premium glass fish vessel ----- */
     .fish-vessel{
-      position:absolute;left:clamp(22px,4.2vw,66px);top:72px;width:218px;height:248px;
-      z-index:4;pointer-events:none;filter:drop-shadow(0 26px 38px rgba(5,22,40,.13));
-      transform:translateZ(0);isolation:isolate
+      position:absolute;left:clamp(24px,4vw,62px);top:58px;width:188px;height:212px;
+      z-index:5;pointer-events:none;filter:drop-shadow(0 24px 34px rgba(5,22,40,.14));
     }
-    #fishCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+    .fish-vessel-art{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .fish-vessel-art .water-line{opacity:.72}
+    .fish-vessel-art .fish{transform-box:fill-box;transform-origin:center;filter:url(#fishShadow)}
+    .fish-vessel-art .fish-1{animation:fishCruise1 8.2s ease-in-out infinite}
+    .fish-vessel-art .fish-2{animation:fishCruise2 9.6s ease-in-out -2.1s infinite}
+    .fish-vessel-art .fish-3{animation:fishCruise3 8.8s ease-in-out -4.4s infinite}
+    .fish-vessel-art .fish-4{animation:fishCruise4 10.5s ease-in-out -6.7s infinite}
+    .fish-vessel-art .tail{transform-box:fill-box;transform-origin:18% 50%;animation:tailWag .55s ease-in-out infinite alternate}
+    .fish-vessel-art .fin{transform-box:fill-box;transform-origin:center;animation:finPulse 1.6s ease-in-out infinite alternate}
+    .fish-vessel-art .bubble{animation:bubbleRise 4.8s linear infinite}
+    .fish-vessel-art .bubble.b2{animation-delay:-2.2s}
+    .fish-vessel-art .bubble.b3{animation-delay:-3.3s}
     .fish-vessel-glass{
-      position:absolute;inset:5px;border-radius:46% 46% 42% 42% / 30% 30% 16% 16%;
-      border:1px solid rgba(90,130,154,.22);
+      position:absolute;inset:5px;border-radius:47% 47% 42% 42% / 22% 22% 12% 12%;
+      border:1px solid rgba(104,139,160,.20);
       background:
-        linear-gradient(103deg,rgba(255,255,255,.52),transparent 17% 70%,rgba(209,230,240,.16)),
-        radial-gradient(circle at 28% 20%,rgba(255,255,255,.5),transparent 19%);
-      box-shadow:inset 12px 10px 28px rgba(255,255,255,.36),inset -14px -22px 34px rgba(8,29,49,.07),0 0 0 1px rgba(255,255,255,.44);
-      backdrop-filter:blur(.4px)
+        linear-gradient(105deg,rgba(255,255,255,.48),transparent 16% 74%,rgba(216,234,242,.12)),
+        radial-gradient(circle at 28% 18%,rgba(255,255,255,.42),transparent 18%);
+      box-shadow:inset 10px 8px 24px rgba(255,255,255,.28),inset -12px -20px 30px rgba(7,29,49,.05),0 0 0 1px rgba(255,255,255,.34);
+      backdrop-filter:blur(.35px)
     }
     .fish-vessel-rim,.fish-vessel-base{
       position:absolute;left:50%;transform:translateX(-50%);
-      border:1px solid rgba(91,126,149,.24);border-radius:50%;
-      background:linear-gradient(180deg,rgba(255,255,255,.46),rgba(214,228,236,.14));
-      box-shadow:inset 0 2px 5px rgba(255,255,255,.65),0 8px 18px rgba(22,54,77,.07)
+      border:1px solid rgba(92,126,148,.23);border-radius:50%;
+      background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(212,229,237,.10));
+      box-shadow:inset 0 2px 5px rgba(255,255,255,.62),0 7px 14px rgba(22,54,77,.06)
     }
-    .fish-vessel-rim{top:7px;width:142px;height:27px}
-    .fish-vessel-base{bottom:7px;width:124px;height:20px}
+    .fish-vessel-rim{top:6px;width:124px;height:23px}
+    .fish-vessel-base{bottom:7px;width:110px;height:18px}
     .fish-vessel-shine{
-      position:absolute;left:29px;top:28px;width:22px;height:148px;border-radius:50%;
-      background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.03));filter:blur(1px);opacity:.68;
+      position:absolute;left:24px;top:24px;width:18px;height:129px;border-radius:50%;
+      background:linear-gradient(180deg,rgba(255,255,255,.68),rgba(255,255,255,.02));filter:blur(1px);opacity:.62;
       transform:rotate(7deg)
     }
-    .fish-vessel-label{
-      position:absolute;right:2px;bottom:26px;display:flex;flex-direction:column;gap:1px;align-items:flex-end;
-      color:#8f9eac;font-size:6px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;opacity:.72
-    }
-    .fish-vessel-label b{color:#c5a15d;font-size:8px;letter-spacing:2.4px}
     .fish-vessel-glow{
-      position:absolute;left:50%;top:53%;width:72%;height:46%;transform:translate(-50%,-50%);
-      border-radius:50%;background:radial-gradient(circle,rgba(105,181,219,.08),transparent 68%);
-      filter:blur(11px)
+      position:absolute;left:50%;top:53%;width:72%;height:43%;transform:translate(-50%,-50%);
+      border-radius:50%;background:radial-gradient(circle,rgba(90,174,214,.08),transparent 68%);filter:blur(10px)
     }
+    .fish-vessel-label{
+      position:absolute;right:-2px;bottom:24px;display:flex;flex-direction:column;gap:1px;align-items:flex-end;
+      color:#8f9eac;font-size:5px;font-weight:900;letter-spacing:1.3px;text-transform:uppercase;opacity:.72
+    }
+    .fish-vessel-label b{color:#c5a15d;font-size:7px;letter-spacing:2px}
+    @keyframes fishCruise1{
+      0%,100%{transform:translate3d(-4px,0,0) rotate(-2deg) scale(1)}
+      50%{transform:translate3d(12px,4px,1px) rotate(2deg) scale(1.025)}
+    }
+    @keyframes fishCruise2{
+      0%,100%{transform:translate3d(10px,2px,0) scaleX(-1) rotate(2deg)}
+      50%{transform:translate3d(-9px,-3px,1px) scaleX(-1) rotate(-2deg)}
+    }
+    @keyframes fishCruise3{
+      0%,100%{transform:translate3d(-10px,-1px,0) rotate(2deg) scale(.98)}
+      50%{transform:translate3d(8px,5px,1px) rotate(-2deg) scale(1.02)}
+    }
+    @keyframes fishCruise4{
+      0%,100%{transform:translate3d(7px,0,0) scaleX(-1) rotate(-2deg) scale(.94)}
+      50%{transform:translate3d(-7px,4px,1px) scaleX(-1) rotate(2deg) scale(1)}
+    }
+    @keyframes tailWag{from{transform:rotate(-5deg)}to{transform:rotate(6deg)}}
+    @keyframes finPulse{from{transform:rotate(-4deg)}to{transform:rotate(5deg)}}
+    @keyframes bubbleRise{0%{transform:translateY(0);opacity:0}.14%{opacity:.5}86%{opacity:.24}100%{transform:translateY(-62px);opacity:0}}
     @media(max-width:1100px){
-      .fish-vessel{left:12px;top:62px;transform:scale(.9);transform-origin:top left}
+      .fish-vessel{left:10px;top:52px;transform:scale(.9);transform-origin:top left}
     }
     @media(max-width:920px){
-      .fish-vessel{left:50%;top:8px;transform:translateX(-50%) scale(.82);transform-origin:top center;z-index:1}
+      .fish-vessel{left:50%;top:6px;transform:translateX(-50%) scale(.76);transform-origin:top center;z-index:1}
       .hero-grid{position:relative}
     }
     @media(max-width:600px){
-      .fish-vessel{top:0;transform:translateX(-50%) scale(.67);opacity:.92}
-    }
-    @media(prefers-reduced-motion:reduce){
-      .fish-vessel{filter:drop-shadow(0 20px 26px rgba(5,22,40,.1))}
+      .fish-vessel{top:0;transform:translateX(-50%) scale(.62);opacity:.94}
     }
 
     /* ----- navigation ----- */
@@ -564,8 +589,79 @@
 
   <main>
     <section class="hero" id="home">
-      <div class="fish-vessel" id="fishVessel" aria-label="Glass vessel with four colorful fish">
-        <canvas id="fishCanvas"></canvas>
+      <div class="fish-vessel" id="fishVessel" aria-label="Glass bowl with four colorful fish">
+        <svg class="fish-vessel-art" viewBox="0 0 220 250" role="img" aria-label="Four colorful fish swimming in a glass bowl">
+          <defs>
+            <clipPath id="bowlClip"><path d="M34 26Q110 2 186 26V181Q182 225 110 232Q38 225 34 181Z"/></clipPath>
+            <linearGradient id="waterFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#dff4fb" stop-opacity=".30"/><stop offset=".58" stop-color="#a8d8e8" stop-opacity=".10"/><stop offset="1" stop-color="#6daec4" stop-opacity=".04"/></linearGradient>
+            <linearGradient id="orangeFish" x1="0" x2="1"><stop offset="0" stop-color="#ffcf66"/><stop offset=".34" stop-color="#ff9d2f"/><stop offset=".76" stop-color="#ee5e22"/><stop offset="1" stop-color="#b73618"/></linearGradient>
+            <linearGradient id="blueFish" x1="0" x2="1"><stop offset="0" stop-color="#8ad4ff"/><stop offset=".38" stop-color="#438bd4"/><stop offset=".72" stop-color="#2454a3"/><stop offset="1" stop-color="#17336f"/></linearGradient>
+            <linearGradient id="greenFish" x1="0" x2="1"><stop offset="0" stop-color="#a9e68b"/><stop offset=".38" stop-color="#43b66d"/><stop offset=".76" stop-color="#16896c"/><stop offset="1" stop-color="#0b5d50"/></linearGradient>
+            <linearGradient id="goldFish" x1="0" x2="1"><stop offset="0" stop-color="#fff0a6"/><stop offset=".34" stop-color="#f5c64f"/><stop offset=".78" stop-color="#d99524"/><stop offset="1" stop-color="#9c5c16"/></linearGradient>
+            <radialGradient id="glassShine"><stop offset="0" stop-color="#fff" stop-opacity=".72"/><stop offset=".7" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+            <filter id="fishShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="2.8" flood-color="#153146" flood-opacity=".18"/></filter>
+            <filter id="soft"><feGaussianBlur stdDeviation="2.2"/></filter>
+          </defs>
+
+          <path d="M36 32Q110 11 184 32V179Q179 219 110 230Q41 219 36 179Z" fill="url(#waterFill)"/>
+          <ellipse cx="110" cy="228" rx="67" ry="9" fill="#cdbf9f" opacity=".32"/>
+          <g clip-path="url(#bowlClip)">
+            <path d="M47 185Q74 169 100 187T151 184T181 190V236H42Z" fill="#bba985" opacity=".35"/>
+            <g opacity=".70">
+              <path d="M59 188c3-26 1-43 9-54 6 13 5 26 2 53M68 188c-3-20-1-36 5-46M154 189c-1-23 3-39 8-51 7 17 5 34 0 50" fill="none" stroke="#74aa72" stroke-width="3" stroke-linecap="round"/>
+              <path d="M76 186c4-31 7-44 14-56 5 15 5 33-1 55" fill="none" stroke="#82b47b" stroke-width="2.5" stroke-linecap="round"/>
+            </g>
+
+            <g class="fish fish-1" transform="translate(103 90)">
+              <path d="M-29 0L-50 -17Q-58 0 -50 17Z" fill="#d94c1b" class="tail"/>
+              <ellipse cx="-2" cy="0" rx="29" ry="15" fill="url(#orangeFish)"/>
+              <ellipse cx="9" cy="-3" rx="17" ry="8" fill="#ffd875" opacity=".28"/>
+              <path d="M0 -12Q11 -28 24 -15Q14 -7 1 -5Z" fill="#ff9b32" class="fin"/>
+              <path d="M-1 12Q14 17 22 10Q11 4 0 5Z" fill="#d74e21" class="fin"/>
+              <circle cx="18" cy="-3" r="4.1" fill="#0a2138"/><circle cx="19.4" cy="-4.2" r="1.15" fill="#fff"/>
+              <path d="M29 0h6" stroke="#8c2a1a" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+
+            <g class="fish fish-2" transform="translate(127 129)">
+              <path d="M-27 0L-46 -15Q-52 0 -46 15Z" fill="#234d9a" class="tail"/>
+              <ellipse cx="0" cy="0" rx="28" ry="14.5" fill="url(#blueFish)"/>
+              <ellipse cx="7" cy="-3" rx="16" ry="7" fill="#c5ebff" opacity=".24"/>
+              <path d="M-2 -11Q9 -29 22 -14Q12 -7 0 -5Z" fill="#659fd9" class="fin"/>
+              <path d="M1 11Q11 21 23 8Q10 4 1 4Z" fill="#214d9f" class="fin"/>
+              <circle cx="18" cy="-3" r="4.1" fill="#07192f"/><circle cx="19.3" cy="-4.2" r="1.1" fill="#fff"/>
+              <path d="M28 0h6" stroke="#15356e" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+
+            <g class="fish fish-3" transform="translate(95 158)">
+              <path d="M-24 0L-43 -14Q-49 0 -43 14Z" fill="#15745a" class="tail"/>
+              <ellipse cx="0" cy="0" rx="24" ry="12.5" fill="url(#greenFish)"/>
+              <ellipse cx="5" cy="-3" rx="13" ry="6.5" fill="#e1ffbf" opacity=".20"/>
+              <path d="M-2 -9Q8 -23 19 -11Q10 -5 0 -4Z" fill="#5bc47f" class="fin"/>
+              <path d="M-1 9Q10 15 19 6Q9 3 1 3Z" fill="#08715c" class="fin"/>
+              <circle cx="15" cy="-2.5" r="3.6" fill="#0a2637"/><circle cx="16.1" cy="-3.4" r=".95" fill="#fff"/>
+              <path d="M24 0h5" stroke="#0c4b40" stroke-width="1.4" stroke-linecap="round"/>
+            </g>
+
+            <g class="fish fish-4" transform="translate(127 72)">
+              <path d="M-23 0L-41 -13Q-47 0 -41 13Z" fill="#b7751b" class="tail"/>
+              <ellipse cx="0" cy="0" rx="23" ry="12" fill="url(#goldFish)"/>
+              <ellipse cx="4" cy="-2.5" rx="12" ry="6" fill="#fff4ba" opacity=".26"/>
+              <path d="M-1 -9Q7 -22 18 -10Q10 -5 0 -4Z" fill="#edbb49" class="fin"/>
+              <path d="M-1 9Q9 16 18 6Q9 2 0 3Z" fill="#b87418" class="fin"/>
+              <circle cx="14.5" cy="-2.5" r="3.5" fill="#1b2834"/><circle cx="15.4" cy="-3.4" r=".9" fill="#fff"/>
+              <path d="M23 0h5" stroke="#865815" stroke-width="1.3" stroke-linecap="round"/>
+            </g>
+
+            <g opacity=".72">
+              <circle class="bubble b1" cx="77" cy="170" r="2.5" fill="#fff"/>
+              <circle class="bubble b2" cx="145" cy="145" r="2" fill="#fff"/>
+              <circle class="bubble b3" cx="91" cy="110" r="1.7" fill="#fff"/>
+            </g>
+
+            <ellipse cx="67" cy="74" rx="27" ry="50" fill="url(#glassShine)" opacity=".65"/>
+          </g>
+          <ellipse class="water-line" cx="110" cy="43" rx="74" ry="14" fill="#fff" fill-opacity=".15" stroke="#7ba4b7" stroke-opacity=".22"/>
+        </svg>
         <div class="fish-vessel-glow"></div>
         <div class="fish-vessel-glass"></div>
         <div class="fish-vessel-rim"></div>
@@ -846,202 +942,6 @@
       });
       stage.addEventListener('pointerleave',function(){orbital.style.transform='';});
     }
-
-    // Realistic glass-vessel fish scene: four color-treated PBR fish swim slowly inside a transparent jar.
-    (function(){
-      var root=document.getElementById('fishVessel'), canvas=document.getElementById('fishCanvas');
-      if(!root||!canvas)return;
-
-      var started=false,renderer,scene,camera,clock,fishBase,jarGroup,fish=[],bubbles=[];
-      var vesselUrl='https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/BarramundiFish/glTF-Binary/BarramundiFish.glb';
-
-      function fit(){
-        if(!renderer||!camera)return;
-        var w=Math.max(1,root.clientWidth),h=Math.max(1,root.clientHeight);
-        renderer.setSize(w,h,false);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-        camera.aspect=w/h;
-        camera.updateProjectionMatrix();
-      }
-
-      function makeGlass(THREE){
-        var shellMat=new THREE.MeshPhysicalMaterial({
-          color:0xddeaf0,transparent:true,opacity:.13,roughness:.04,metalness:.02,
-          transmission:.9,thickness:.09,ior:1.46,side:THREE.DoubleSide,depthWrite:false
-        });
-        var shell=new THREE.Mesh(new THREE.CylinderGeometry(1.02,.91,2.35,64,1,true),shellMat);
-        shell.position.y=.1;
-        jarGroup.add(shell);
-
-        var rimMat=new THREE.MeshPhysicalMaterial({
-          color:0xe7f4fb,transparent:true,opacity:.38,roughness:.06,metalness:.02,
-          transmission:.65,thickness:.05,ior:1.44
-        });
-        var rim=new THREE.Mesh(new THREE.TorusGeometry(1.02,.045,12,64),rimMat);
-        rim.position.y=1.275;
-        jarGroup.add(rim);
-
-        var base=new THREE.Mesh(new THREE.TorusGeometry(.92,.052,12,64),rimMat);
-        base.position.y=-1.075;
-        base.scale.set(1,.58,1);
-        jarGroup.add(base);
-
-        var waterMat=new THREE.MeshPhysicalMaterial({
-          color:0x93bfd1,transparent:true,opacity:.10,roughness:.06,transmission:.4,side:THREE.DoubleSide,depthWrite:false
-        });
-        var water=new THREE.Mesh(new THREE.CylinderGeometry(.96,.88,1.82,64,1,true),waterMat);
-        water.position.y=-.18;
-        jarGroup.add(water);
-
-        var surfaceMat=new THREE.MeshPhysicalMaterial({
-          color:0x8fb8c8,transparent:true,opacity:.14,roughness:.03,transmission:.28
-        });
-        var surface=new THREE.Mesh(new THREE.CylinderGeometry(.94,.94,.018,64),surfaceMat);
-        surface.position.y=.72;
-        jarGroup.add(surface);
-
-        var stoneMat=new THREE.MeshPhysicalMaterial({color:0xd7c7a5,roughness:.78,metalness:0});
-        for(var i=0;i<16;i++){
-          var stone=new THREE.Mesh(new THREE.IcosahedronGeometry(.075+Math.random()*.045,1),stoneMat.clone());
-          var a=i*.9,rad=.12+Math.random()*.72;
-          stone.position.set(Math.cos(a)*rad,-1.01+Math.random()*.08,Math.sin(a)*rad*.55);
-          stone.scale.y=.62+Math.random()*.5;
-          jarGroup.add(stone);
-        }
-
-        var pearlMat=new THREE.MeshPhysicalMaterial({color:0xf3ead4,roughness:.23,metalness:.03,clearcoat:.3});
-        for(var p=0;p<5;p++){
-          var pearl=new THREE.Mesh(new THREE.SphereGeometry(.055,18,12),pearlMat);
-          var pa=p*1.7;
-          pearl.position.set(Math.cos(pa)*(.35+.11*p),-.97,Math.sin(pa)*(.22+.05*p));
-          jarGroup.add(pearl);
-        }
-      }
-
-      function tintFish(THREE,src,color){
-        var clone=src.clone(true);
-        clone.traverse(function(o){
-          if(!o.isMesh)return;
-          if(o.material){
-            var m=o.material.clone();
-            if(m.color){
-              var baseColor=new THREE.Color(color);
-              m.color.lerp(baseColor,.66);
-              m.roughness=Math.max(.28,m.roughness||.5);
-              m.metalness=Math.min(.18,m.metalness||0);
-            }
-            if(m.emissive)m.emissive.setRGB(.012,.018,.022);
-            o.material=m;
-            o.castShadow=true;
-            o.receiveShadow=true;
-          }
-        });
-        return clone;
-      }
-
-      async function boot(){
-        if(started)return; started=true;
-        try{
-          var THREE=await import('https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js');
-          var GLTFLoader=(await import('https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/loaders/GLTFLoader.js')).GLTFLoader;
-          renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true,powerPreference:'high-performance'});
-          renderer.outputColorSpace=THREE.SRGBColorSpace;
-          renderer.toneMapping=THREE.ACESFilmicToneMapping;
-          renderer.toneMappingExposure=1.12;
-          renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-          scene=new THREE.Scene();
-          camera=new THREE.PerspectiveCamera(27,1,.05,30);
-          camera.position.set(0,.30,4.25);
-          camera.lookAt(0,.1,0);
-
-          scene.add(new THREE.HemisphereLight(0xf1fbff,0x314154,2.15));
-          var key=new THREE.DirectionalLight(0xfff3d8,3.25);
-          key.position.set(-3.4,4.5,3.8);scene.add(key);
-          var fill=new THREE.DirectionalLight(0x9ac9ff,1.7);
-          fill.position.set(3.5,2,-2.5);scene.add(fill);
-          var warm=new THREE.PointLight(0xe4bf7a,1.0,5);
-          warm.position.set(-1.3,.55,2.4);scene.add(warm);
-
-          jarGroup=new THREE.Group();
-          jarGroup.scale.setScalar(.92);
-          jarGroup.rotation.y=-.08;
-          scene.add(jarGroup);
-          makeGlass(THREE);
-
-          var loader=new GLTFLoader();
-          var gltf=await loader.loadAsync(vesselUrl);
-          fishBase=gltf.scene;
-          var bb=new THREE.Box3().setFromObject(fishBase);
-          var size=bb.getSize(new THREE.Vector3());
-          var scale=.58/Math.max(size.x,size.y,size.z);
-          fishBase.scale.setScalar(scale);
-          fishBase.position.sub(bb.getCenter(new THREE.Vector3()).multiplyScalar(scale));
-          fishBase.rotation.y=Math.PI/2;
-
-          var palette=[
-            {c:0xeb5a2d,p:[-.43,.30,.10],s:1.00,ph:.1,d:1},
-            {c:0x2f77c8,p:[.36,.06,-.08],s:.84,ph:1.7,d:-1},
-            {c:0x1d9d76,p:[-.18,-.34,.06],s:.70,ph:3.15,d:1},
-            {c:0xd4a62e,p:[.33,.43,-.10],s:.64,ph:4.55,d:-1}
-          ];
-
-          palette.forEach(function(cfg,i){
-            var f=tintFish(THREE,fishBase,cfg.c);
-            f.scale.multiplyScalar(cfg.s);
-            f.position.set(cfg.p[0],cfg.p[1],cfg.p[2]);
-            f.userData={baseX:cfg.p[0],baseY:cfg.p[1],baseZ:cfg.p[2],phase:cfg.ph,dir:cfg.d,idx:i};
-            jarGroup.add(f);
-            fish.push(f);
-          });
-
-          var bubbleMat=new THREE.MeshPhysicalMaterial({color:0xdaf3ff,transparent:true,opacity:.22,roughness:.02,transmission:.55});
-          for(var i=0;i<9;i++){
-            var b=new THREE.Mesh(new THREE.SphereGeometry(.018+Math.random()*.018,14,10),bubbleMat.clone());
-            b.userData={x:(Math.random()-.5)*1.25,z:(Math.random()-.5)*.55,y:-.75+Math.random()*1.25,s:.35+Math.random()*.7};
-            b.position.set(b.userData.x,b.userData.y,b.userData.z);
-            jarGroup.add(b);bubbles.push(b);
-          }
-
-          fit();
-          window.addEventListener('resize',fit,{passive:true});
-          clock=new THREE.Clock();
-
-          function loop(){
-            requestAnimationFrame(loop);
-            var t=clock.getElapsedTime();
-            fish.forEach(function(f){
-              var u=f.userData;
-              f.position.x=u.baseX + Math.sin(t*.56+u.phase)*.10 + Math.sin(t*.27+u.phase)*.06;
-              f.position.y=u.baseY + Math.sin(t*.82+u.phase)*.035;
-              f.position.z=u.baseZ + Math.cos(t*.44+u.phase)*.06;
-              f.rotation.y=(Math.PI/2) + u.dir*(.10+Math.sin(t*.52+u.phase)*.10);
-              f.rotation.z=Math.sin(t*.64+u.phase)*.025;
-            });
-            bubbles.forEach(function(b){
-              var u=b.userData;
-              u.y+=.0018*u.s;
-              if(u.y>.83)u.y=-.78-Math.random()*.25;
-              b.position.y=u.y;
-              b.position.x=u.x+Math.sin(t*.7+u.s*4)*.012;
-            });
-            jarGroup.rotation.y=-.08+Math.sin(t*.14)*.025;
-            warm.intensity=1.0+.18*Math.sin(t*.75);
-            renderer.render(scene,camera);
-          }
-          loop();
-        }catch(err){
-          console.warn('UVS glass fish scene unavailable',err);
-          root.style.opacity='.86';
-        }
-      }
-
-      if('IntersectionObserver' in window){
-        var io=new IntersectionObserver(function(entries){
-          if(entries.some(function(e){return e.isIntersecting;})){boot();io.disconnect();}
-        },{threshold:.02});
-        io.observe(root);
-      }else boot();
-    })();
 
     // Contact pipeline: send enquiries directly to the UVS mailbox through FormSubmit's
     // cross-origin AJAX endpoint. Visitors never need an email app.
