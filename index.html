@@ -860,7 +860,7 @@
         var need=document.getElementById('need').value;
         var message=document.getElementById('message').value.trim();
 
-        if(!email || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)){
+        if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
           setStatus('Please enter a valid email address.',false);
           document.getElementById('email').focus();
           return false;
