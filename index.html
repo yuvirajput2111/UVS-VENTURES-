@@ -723,13 +723,13 @@
           <h2>Tell us what you are trying to move.</h2>
           <p>A market. A partnership. A pipeline. A website. Give us the context and we will explore the right next step.</p>
         </div>
-        <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/ajax/partnership@uvsventures.com" method="POST" onsubmit="return prepareContactForm(event)">
+        <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/partnership@uvsventures.com" data-ajax-endpoint="https://formsubmit.co/ajax/partnership@uvsventures.com" method="POST" onsubmit="return prepareContactForm(event)">
           <input type="hidden" name="_subject" id="mailSubject" value="New UVS Ventures enquiry">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="true">
           <input type="hidden" name="_url" value="https://uvsventures.com/#contact">
           <input type="hidden" name="_replyto" id="mailReplyTo" value="">
-          <input class="input" id="name" name="name" required placeholder="Your name">
+          <input class="input" id="name" name="name" required autocomplete="name" placeholder="Your name">
           <input class="input" id="company" name="company" placeholder="Company">
           <input class="input" id="email" name="email" type="email" required placeholder="Work email">
           <select class="select" id="need" name="enquiry_type">
@@ -740,7 +740,8 @@
             <option value="Free Trial / Pilot">Free Trial / Pilot</option>
             <option value="Other">Other</option>
           </select>
-          <textarea class="input textarea" id="message" name="message" placeholder="What are you trying to achieve?"></textarea>
+          <textarea class="input textarea" id="message" name="message" required placeholder="What are you trying to achieve?"></textarea>
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
           <div style="grid-column:1/-1;display:flex;justify-content:center;margin-top:6px"><button class="btn" id="contactSubmit" type="submit">Send enquiry securely ↗</button></div>
           <div id="formStatus" role="status" aria-live="polite" style="grid-column:1/-1;text-align:center;min-height:24px;margin-top:2px;font-size:12px;font-weight:700;color:#68768b"></div>
         </form>
@@ -838,13 +839,13 @@
       stage.addEventListener('pointerleave',function(){orbital.style.transform='';});
     }
 
-    // Contact pipeline: send enquiries directly to the UVS mailbox through FormSubmit's
-    // cross-origin AJAX endpoint. Visitors never need an email app.
+    // Contact pipeline: AJAX first, then a guaranteed email-draft fallback if a browser/network blocks the service.
     (function(){
       var form=document.getElementById('contactForm');
       var status=document.getElementById('formStatus');
       var submit=document.getElementById('contactSubmit');
       var reply=document.getElementById('mailReplyTo');
+      var ajaxEndpoint=form ? form.getAttribute('data-ajax-endpoint') : '';
 
       function setStatus(message,ok){
         if(!status)return;
@@ -852,71 +853,147 @@
         status.style.color=ok?'#2d6a3f':'#8a3b2f';
       }
 
+      function openMailFallback(name,company,email,need,message){
+        var subject='UVS Ventures enquiry — '+need;
+        var body=[
+          'Name: '+name,
+          'Company: '+(company||'Not provided'),
+          'Work email: '+email,
+          'Enquiry: '+need,
+          '',
+          'Message:',
+          message||'(No message provided)',
+          '',
+          'Sent from uvsventures.com'
+        ].join('\\n');
+        var mailto='mailto:partnership@uvsventures.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+        window.location.href=mailto;
+        setStatus('Your email app is opening with the enquiry ready to send.',false);
+      }
+
+      function timeoutPromise(ms){
+        return new Promise(function(_,reject){
+          setTimeout(function(){reject(new Error('timeout'));},ms);
+        });
+      }
+
       window.prepareContactForm=async function(e){
         e.preventDefault();
-        var email=document.getElementById('email').value.trim();
+
+        if(!form)return false;
+
         var name=document.getElementById('name').value.trim();
         var company=document.getElementById('company').value.trim();
+        var email=document.getElementById('email').value.trim();
         var need=document.getElementById('need').value;
         var message=document.getElementById('message').value.trim();
+        var honey=form.querySelector('input[name="_honey"]');
 
-        if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        if(honey && honey.value){
+          setStatus('Please try again.',false);
+          return false;
+        }
+
+        if(!name){
+          setStatus('Please enter your name.',false);
+          document.getElementById('name').focus();
+          return false;
+        }
+
+        if(!email || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)){
           setStatus('Please enter a valid email address.',false);
           document.getElementById('email').focus();
+          return false;
+        }
+
+        if(!message){
+          setStatus('Please tell us what you are trying to achieve.',false);
+          document.getElementById('message').focus();
           return false;
         }
 
         document.getElementById('mailSubject').value='New UVS Ventures enquiry — '+need;
         reply.value=email;
 
-        if(submit){submit.disabled=true;submit.style.opacity='.65';submit.innerHTML='Sending enquiry…';}
+        if(submit){
+          submit.disabled=true;
+          submit.style.opacity='.65';
+          submit.innerHTML='Sending enquiry…';
+        }
         setStatus('Sending your enquiry securely…',true);
 
+        var payload={
+          name:name,
+          company:company,
+          email:email,
+          enquiry_type:need,
+          message:message,
+          _subject:document.getElementById('mailSubject').value,
+          _template:'table',
+          _captcha:'true',
+          _replyto:email,
+          _url:window.location.href,
+          _honey:''
+        };
+
         try{
-          var response=await fetch(form.action,{
+          if(!ajaxEndpoint)throw new Error('AJAX endpoint missing');
+
+          var controller=('AbortController' in window)?new AbortController():null;
+          var request=fetch(ajaxEndpoint,{
             method:'POST',
             headers:{'Content-Type':'application/json','Accept':'application/json'},
-            body:JSON.stringify({
-              name:name,
-              company:company,
-              email:email,
-              enquiry_type:need,
-              message:message,
-              _subject:document.getElementById('mailSubject').value,
-              _template:'table',
-              _captcha:'true',
-              _replyto:email,
-              _url:window.location.href
-            })
+            body:JSON.stringify(payload),
+            signal:controller?controller.signal:undefined
           });
 
-          var data=await response.json().catch(function(){return {};});
-          if(response.ok && (data.success===true || data.message)){
-            form.reset();
-            setStatus('Enquiry sent successfully. UVS will contact you shortly.',true);
-          }else{
-            throw new Error(data.message || 'Submission service did not accept the enquiry.');
+          if(controller){
+            request=Promise.race([request,timeoutPromise(12000).then(function(){
+              controller.abort();
+              throw new Error('timeout');
+            })]);
           }
+
+          var response=await request;
+          var data=await response.json().catch(function(){return {};});
+          var ok=response.ok && (
+            data.success===true ||
+            data.success==='true' ||
+            data.success===1
+          );
+
+          if(!ok){
+            throw new Error(data.message || 'Submission service rejected the enquiry.');
+          }
+
+          form.reset();
+          setStatus('Enquiry sent successfully. UVS will contact you shortly.',true);
         }catch(err){
           console.error('UVS enquiry delivery failed:',err);
-          setStatus('We could not complete the online send. Please use WhatsApp or email below.',false);
+          openMailFallback(name,company,email,need,message);
         }finally{
-          if(submit){submit.disabled=false;submit.style.opacity='1';submit.innerHTML='Send enquiry securely ↗';}
+          if(submit){
+            submit.disabled=false;
+            submit.style.opacity='1';
+            submit.innerHTML='Send enquiry securely ↗';
+          }
         }
+
         return false;
       };
 
-      document.querySelectorAll('.contact-cta').forEach(function(link){
+      // Every CTA that points to #contact can optionally preselect its enquiry type.
+      document.querySelectorAll('.contact-cta, a[href="#contact"]').forEach(function(link){
         link.addEventListener('click',function(){
           var desired=this.getAttribute('data-enquiry');
-          if(desired){
-            var select=document.getElementById('need');
-            if(select){
-              Array.prototype.forEach.call(select.options,function(opt){
-                opt.selected=(opt.value===desired);
-              });
+          var select=document.getElementById('need');
+
+          if(desired && select){
+            for(var i=0;i<select.options.length;i++){
+              select.options[i].selected=(select.options[i].value===desired);
             }
           }
+
           setTimeout(function(){
             var first=document.getElementById('name');
             if(first)first.focus();
@@ -924,6 +1001,19 @@
         });
       });
     })();
+
+    // Keep all in-page navigation reliable even on mobile Safari/Chrome.
+    document.querySelectorAll('a[href^="#"]').forEach(function(link){
+      link.addEventListener('click',function(e){
+        var id=this.getAttribute('href');
+        if(!id || id==='#')return;
+        var target=document.querySelector(id);
+        if(!target)return;
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+        if(history && history.replaceState)history.replaceState(null,'',id);
+      });
+    });
   </script>
 </body>
 </html>
