@@ -133,6 +133,47 @@
     @media(max-width:900px){.signal-art{position:relative;right:auto;top:auto;transform:none;width:min(440px,88vw);height:min(440px,88vw);margin:0 auto;min-width:0;min-height:0}.signal-caption{bottom:2%}}
     @media(max-width:720px){.signal-art{width:330px;height:330px}.signal-core{width:105px;height:105px}.core-mark{font-size:29px}.signal-node{font-size:6px}.signal-node b{font-size:9px}}
     @media(prefers-reduced-motion:reduce){.signal-orbit,.signal-halo,.signal-core::before,.signal-beam{animation:none}.signal-core{transition:none}}
+    /* ----- careers / talent pipeline ----- */
+    .career-section{
+      background:
+        radial-gradient(circle at 10% 15%,rgba(200,163,93,.13),transparent 24%),
+        radial-gradient(circle at 88% 78%,rgba(62,126,173,.11),transparent 27%),
+        linear-gradient(135deg,#f8fafc 0%,#fff 55%,#edf3f6 100%);
+    }
+    .career-head{display:grid;grid-template-columns:1.1fr .9fr;gap:55px;align-items:end;margin-bottom:45px}
+    .career-head h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(42px,5vw,64px);line-height:1.02;font-weight:500;letter-spacing:-1.5px;color:var(--navy)}
+    .career-head h2 em{font-style:normal;color:var(--gold)}
+    .career-head p{color:var(--muted);max-width:560px;font-size:16px}
+    .career-open{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:12px 17px;border-radius:999px;background:var(--navy);color:#fff;font-size:12px;font-weight:900;letter-spacing:.7px;box-shadow:0 15px 30px rgba(7,25,48,.16);transition:.25s}
+    .career-open:hover{transform:translateY(-2px);box-shadow:0 20px 36px rgba(7,25,48,.22)}
+    .career-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:44px}
+    .career-card{position:relative;padding:25px;border-radius:22px;background:rgba(255,255,255,.82);border:1px solid rgba(10,31,57,.09);box-shadow:0 16px 35px rgba(5,20,40,.06);overflow:hidden;transition:.3s}
+    .career-card::after{content:"";position:absolute;right:-45px;top:-45px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(200,163,93,.18),transparent 68%)}
+    .career-card:hover{transform:translateY(-4px);box-shadow:0 25px 50px rgba(5,20,40,.1)}
+    .career-index{font-size:10px;font-weight:900;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+    .career-card h3{margin:9px 0 7px;color:var(--navy);font-size:19px}
+    .career-card p{color:var(--muted);font-size:13px;line-height:1.65}
+    .career-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .career-meta span{padding:6px 9px;border-radius:999px;background:#f1f5f7;color:#708096;font-size:9px;font-weight:900;letter-spacing:.8px;text-transform:uppercase}
+    .career-form-shell{display:grid;grid-template-columns:.8fr 1.2fr;gap:34px;align-items:start;padding:30px;border-radius:28px;background:linear-gradient(145deg,#07182d,#0c2443 58%,#08192e);box-shadow:0 30px 80px rgba(4,17,35,.17);color:#fff}
+    .career-intro h3{font-family:Georgia,serif;font-size:34px;font-weight:500;line-height:1.08;margin-bottom:15px}
+    .career-intro h3 em{font-style:normal;color:#d7b777}
+    .career-intro p{color:#aebbd0;font-size:14px;line-height:1.75}
+    .career-note{margin-top:22px;padding:14px 16px;border-left:2px solid var(--gold);background:rgba(255,255,255,.045);color:#dce6f0;font-size:11px;line-height:1.7}
+    .career-email{margin-top:18px;color:#d7b777;font-size:11px;font-weight:900;letter-spacing:1.4px;text-transform:uppercase}
+    .career-form{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+    .career-form .input,.career-form .select{height:50px;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.13);color:#fff}
+    .career-form .input::placeholder{color:#95a5b9}
+    .career-form .select option{color:var(--navy)}
+    .career-form .textarea{height:105px}
+    .career-file{grid-column:1/-1;padding:17px;border-radius:14px;border:1px dashed rgba(215,183,119,.42);background:rgba(255,255,255,.04)}
+    .career-file label{display:block;color:#d8e2ec;font-size:11px;font-weight:900;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+    .career-file input{width:100%;color:#fff;font-size:12px}
+    .career-file small{display:block;color:#8698ad;margin-top:7px;font-size:10px}
+    .career-form .btn{border:0;cursor:pointer}
+    @media(max-width:920px){.career-head{grid-template-columns:1fr;gap:20px}.career-grid{grid-template-columns:1fr 1fr}.career-form-shell{grid-template-columns:1fr}}
+    @media(max-width:720px){.career-grid{grid-template-columns:1fr}.career-form{grid-template-columns:1fr}.career-form .textarea{grid-column:auto}.career-file{grid-column:auto}.career-form-shell{padding:23px;border-radius:22px}.career-intro h3{font-size:29px}}
+
     /* ----- navigation ----- */
     header{
       position:sticky;top:0;z-index:100;
@@ -148,6 +189,8 @@
     nav a::after{content:"";position:absolute;left:0;bottom:-7px;width:100%;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:.3s}
     nav a:hover::after{transform:scaleX(1);transform-origin:left}
     nav a:hover{color:var(--navy)}
+    nav .nav-career{color:var(--gold);font-weight:900;padding:9px 11px;border:1px solid rgba(200,163,93,.34);border-radius:999px;background:rgba(200,163,93,.05)}
+    nav .nav-career::after{display:none}
     .nav-cta{padding:11px 16px;border-radius:999px;background:var(--navy);color:#fff!important;box-shadow:0 10px 24px rgba(11,27,51,.18)}
     .nav-cta::after{display:none}
     .trial-cta{padding:11px 17px;border-radius:999px;background:linear-gradient(135deg,#2d5bff,#2047d6);color:#fff!important;box-shadow:0 14px 30px rgba(45,91,255,.22);font-weight:900}
@@ -522,6 +565,7 @@
         <a href="#services">Services</a>
         <a href="#system">Method</a>
         <a href="#experience">Studio</a>
+        <a href="#careers" class="nav-career">Careers</a>
         <a href="#contact" class="nav-cta">Start a Conversation</a>
         <a href="#contact" class="trial-cta contact-cta" data-enquiry="Free Trial / Pilot">Start Free Trial ↗</a>
       </nav>
@@ -695,6 +739,86 @@
       </div>
     </section>
 
+    <section class="career-section" id="careers">
+      <div class="container">
+        <div class="career-head reveal">
+          <div>
+            <div class="eyebrow">Careers at UVS</div>
+            <h2>Build the commercial engine <em>with us.</em></h2>
+            <a class="career-open" href="#careerApply">View open roles ↓</a>
+          </div>
+          <div>
+            <p>UVS is building a practical, globally connected team across research, business development, sales, partnerships and executive support. Apply for a role below or send a strong general application.</p>
+          </div>
+        </div>
+
+        <div class="career-grid">
+          <article class="career-card reveal"><div class="career-index">01 / Research</div><h3>B2B Researcher</h3><p>Map markets, companies, decision-makers and commercial signals into usable account intelligence.</p><div class="career-meta"><span>Research</span><span>Remote</span><span>Full / Part</span></div></article>
+          <article class="career-card reveal"><div class="career-index">02 / Leadership</div><h3>B2B Growth Manager</h3><p>Own focused growth projects, pipeline execution, account strategy and client-facing commercial work.</p><div class="career-meta"><span>Management</span><span>Remote</span></div></article>
+          <article class="career-card reveal"><div class="career-index">03 / Leadership</div><h3>VP — Business Development</h3><p>Build strategic accounts, partnerships, market-entry initiatives and a repeatable international BD engine.</p><div class="career-meta"><span>Senior</span><span>Leadership</span></div></article>
+          <article class="career-card reveal"><div class="career-index">04 / Partnerships</div><h3>Affiliate Manager</h3><p>Recruit, activate and manage relevant affiliates, referral partners and growth relationships.</p><div class="career-meta"><span>Partnerships</span><span>Performance</span></div></article>
+          <article class="career-card reveal"><div class="career-index">05 / Sales</div><h3>Sales Executive</h3><p>Prospect targeted businesses, run personalized outreach and help move qualified conversations toward meetings.</p><div class="career-meta"><span>Sales</span><span>Remote</span></div></article>
+          <article class="career-card reveal"><div class="career-index">06 / Executive</div><h3>PA / Executive Assistant</h3><p>Support the leadership team with research, scheduling, follow-ups, documentation and commercial coordination.</p><div class="career-meta"><span>Executive Support</span><span>Remote</span></div></article>
+          <article class="career-card reveal"><div class="career-index">07 / Operations</div><h3>Business Development Associate</h3><p>Support prospecting, CRM hygiene, lead qualification, reporting and day-to-day commercial execution.</p><div class="career-meta"><span>Entry / Mid</span><span>Remote</span></div></article>
+          <article class="career-card reveal"><div class="career-index">08 / Intelligence</div><h3>Commercial Research Analyst</h3><p>Turn public company, industry and market information into structured briefs for business decisions.</p><div class="career-meta"><span>Research</span><span>Analyst</span></div></article>
+          <article class="career-card reveal"><div class="career-index">09 / General</div><h3>General Application</h3><p>Have a useful skill we did not list? Tell us where you can create measurable commercial value.</p><div class="career-meta"><span>Open</span><span>Talent Pool</span></div></article>
+        </div>
+
+        <div class="career-form-shell" id="careerApply">
+          <div class="career-intro reveal">
+            <div class="eyebrow" style="color:#d7b777">Apply to UVS</div>
+            <h3>Put your work in front of the <em>right people.</em></h3>
+            <p>Choose the role that fits you, add your background and attach your latest resume. The application is routed to the UVS recruitment inbox.</p>
+            <div class="career-note">Resume formats: PDF, DOC or DOCX. Maximum combined upload size is 10MB through the current form service.</div>
+            <div class="career-email">Recruitment inbox · partnership@uvsventures.com</div>
+          </div>
+
+          <form class="career-form" action="https://formsubmit.co/partnership@uvsventures.com" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_subject" value="UVS Careers — New candidate application">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="hidden" name="_url" value="https://uvsventures.com/#careers">
+            <input type="hidden" name="_autoresponse" value="Thank you for applying to UVS Ventures. We have received your application and resume. Our team will review your information and contact you if your profile matches a current requirement.">
+            <input class="input" name="name" required placeholder="Full name">
+            <input class="input" name="email" type="email" required placeholder="Email address">
+            <input class="input" name="phone" placeholder="Phone / WhatsApp">
+            <input class="input" name="location" placeholder="City / Country">
+            <select class="select" name="role" required>
+              <option value="" disabled selected>Select role</option>
+              <option>B2B Researcher</option>
+              <option>B2B Growth Manager</option>
+              <option>VP — Business Development</option>
+              <option>Affiliate Manager</option>
+              <option>Sales Executive</option>
+              <option>PA / Executive Assistant</option>
+              <option>Business Development Associate</option>
+              <option>Commercial Research Analyst</option>
+              <option>General Application</option>
+            </select>
+            <select class="select" name="experience" required>
+              <option value="" disabled selected>Experience level</option>
+              <option>Student / Fresher</option>
+              <option>0–2 years</option>
+              <option>3–5 years</option>
+              <option>6–10 years</option>
+              <option>10+ years</option>
+            </select>
+            <input class="input" name="linkedin" placeholder="LinkedIn URL">
+            <input class="input" name="portfolio" placeholder="Portfolio / Website">
+            <textarea class="input textarea" name="message" placeholder="Why UVS? What can you build or improve here?"></textarea>
+            <div class="career-file">
+              <label for="resume">Attach your resume *</label>
+              <input id="resume" name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+              <small>PDF / DOC / DOCX · Maximum 10MB combined uploads.</small>
+            </div>
+            <div style="grid-column:1/-1;display:flex;justify-content:center;margin-top:5px">
+              <button class="btn gold" type="submit">Submit application + resume ↗</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <section class="experience" id="experience">
       <div class="container experience-shell">
         <div class="browser reveal" data-tilt>
@@ -763,7 +887,7 @@
         </div>
         <div>
           <h3>Explore</h3>
-          <a href="#about">About</a><a href="#services">Capabilities</a><a href="#system">Method</a><a href="#experience">Digital Experience</a>
+          <a href="#about">About</a><a href="#services">Capabilities</a><a href="#system">Method</a><a href="#experience">Digital Experience</a><a href="#careers">Careers</a>
         </div>
         <div>
           <h3>Contact</h3>
