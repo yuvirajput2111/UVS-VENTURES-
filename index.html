@@ -718,6 +718,183 @@
       nav a{color:#eef2f8}
     }
 
+  
+    /* ----- focused mobile layout: less noise, clearer conversion ----- */
+    @media (max-width: 720px) {
+      .site-intro {
+        animation: introExit .65s cubic-bezier(.7,0,.15,1) 1.85s forwards;
+      }
+      .site-intro .noise,
+      .intro-grid,
+      .intro-corner { display:none; }
+      .intro-architecture { width:78vw; height:54vh; }
+      .arch-plane { width:150px; height:285px; }
+      .arch-plane.p3 { width:175px; }
+      .arch-rail { height:300px; }
+      .arch-beam { width:250px; }
+      .intro-status { font-size:7px; letter-spacing:1.5px; }
+
+      .container { width:calc(100% - 32px); }
+      .nav { min-height:68px; gap:12px; }
+      .logo { font-size:15px; letter-spacing:1.8px; }
+      .logo span { font-size:7px; letter-spacing:2px; }
+      .menu {
+        flex:0 0 44px; width:44px; height:44px;
+        background:rgba(212,255,36,.10); color:#D4FF24;
+        border:1px solid rgba(212,255,36,.24);
+      }
+      nav { gap:4px; padding:10px; }
+      nav a { padding:12px; border-radius:10px; }
+      nav a:active { background:rgba(21,88,201,.16); }
+
+      .hero { min-height:0; }
+      .hero-grid {
+        display:flex; flex-direction:column; align-items:stretch;
+        gap:8px; padding:36px 0 44px;
+      }
+      .hero-copy-wrap { order:1; width:100%; }
+      .stage {
+        order:2; width:100%; min-height:225px; height:225px;
+        margin:0; overflow:visible; perspective:none;
+      }
+      .stage::before {
+        width:220px; height:220px;
+        box-shadow:0 0 0 18px rgba(212,255,36,.035),0 0 0 38px rgba(21,88,201,.06);
+      }
+      .signal-art {
+        position:relative; inset:auto; right:auto; top:auto;
+        transform:none; width:min(275px,84vw); height:min(275px,84vw);
+        min-width:0; min-height:0; margin:0 auto; filter:none;
+      }
+      .signal-node { display:none; }
+      .signal-caption {
+        bottom:0; gap:5px; max-width:100%; white-space:normal;
+        text-align:center; font-size:7px; letter-spacing:1.1px;
+      }
+      .signal-caption b { font-size:6px; }
+      .signal-core { width:90px; height:90px; }
+      .core-mark { font-size:27px; }
+      .signal-orbit { opacity:.65; }
+      .hero .eyebrow { font-size:9px; line-height:1.6; letter-spacing:1.65px; margin-bottom:12px; }
+      h1 {
+        font-size:clamp(36px,9.8vw,54px);
+        line-height:1.01; letter-spacing:-1.5px; max-width:100%;
+        overflow-wrap:normal;
+      }
+      .hero-copy { font-size:15px; line-height:1.7; margin-top:17px; }
+      .hero .actions { display:flex; flex-direction:column; gap:10px; margin-top:22px; }
+      .hero .actions .btn,.hero .actions .outline {
+        flex:initial; width:100%; min-height:48px; padding:13px 16px;
+        font-size:13px; justify-content:center; text-align:center;
+      }
+      .micro { display:none; }
+
+      section { padding:54px 0; }
+      .section-head { margin-bottom:26px; }
+      .section-head h2,.about h2,.market-copy h2,.exp-copy h2 {
+        font-size:clamp(30px,8vw,38px); line-height:1.06;
+        letter-spacing:-.8px; overflow-wrap:anywhere;
+      }
+      .section-head p,.about p,.market-copy p,.exp-copy p { font-size:14px; line-height:1.75; }
+      .eyebrow { font-size:9px; letter-spacing:1.8px; margin-bottom:12px; }
+      .actions { gap:10px; }
+      .actions .btn,.actions .outline {
+        min-height:48px; padding:13px 16px; font-size:13px;
+      }
+      .about { gap:24px; }
+      .about-panel { min-height:250px; padding:22px; border-radius:19px; }
+      .panel-top { font-size:8px; letter-spacing:1px; }
+      .panel-big { font-size:clamp(27px,7vw,35px); line-height:1.12; }
+      .panel-foot { flex-wrap:wrap; gap:8px 14px; font-size:10px; }
+
+      .founder-feature { padding:58px 0; }
+      .founder-layout { grid-template-columns:minmax(0,1fr); gap:26px; }
+      .founder-identity { min-height:320px; border-radius:20px; transform:none; }
+      .identity-core { width:145px; height:145px; }
+      .identity-monogram { font-size:58px; }
+      .identity-meta {
+        left:20px; right:20px; bottom:18px;
+        align-items:flex-start; flex-direction:column; gap:5px;
+      }
+      .identity-meta strong { font-size:23px; }
+      .identity-meta span { font-size:8px; letter-spacing:1.5px; }
+      .founder-copy h2 { font-size:clamp(34px,9vw,43px); line-height:1.04; }
+      .founder-copy p { font-size:14px; line-height:1.75; margin-top:16px; }
+      .founder-quote { font-size:18px; padding:18px 0 18px 16px; margin-top:23px; }
+      .founder-signoff { font-size:8px; letter-spacing:1.6px; line-height:1.7; }
+      .founder-copy .actions { margin-top:22px !important; }
+
+      .proof-grid,.cap-grid,.career-grid { grid-template-columns:minmax(0,1fr); gap:12px; margin-top:22px; }
+      .proof-card,.tilt,.career-card {
+        padding:20px !important; border-radius:18px;
+        min-height:0; transform:none !important;
+      }
+      .proof-stars { margin:14px 0 8px; font-size:13px; }
+      .proof-card h3,.tilt h3,.career-card h3 { font-size:18px; line-height:1.3; }
+      .proof-card p,.tilt p,.career-card p { font-size:13px; line-height:1.65; }
+      .card-icon { width:39px; height:39px; margin-bottom:17px; border-radius:12px; }
+      .career-head { grid-template-columns:1fr; gap:16px; margin-bottom:25px; }
+      .career-head h2 { font-size:clamp(34px,9vw,42px); line-height:1.05; }
+      .career-head p { font-size:14px; line-height:1.7; }
+      .career-open { margin-top:16px; min-height:46px; }
+      .career-form-shell { grid-template-columns:1fr; gap:18px; padding:18px; border-radius:20px; }
+      .career-intro h3 { font-size:26px; line-height:1.12; }
+      .career-form { grid-template-columns:1fr; gap:12px; }
+      .career-form .textarea,.career-file { grid-column:auto; }
+      .career-file { min-width:0; }
+      .career-file input { max-width:100%; font-size:12px; }
+      .career-note,.career-file small { font-size:11px; line-height:1.6; }
+
+      .market { grid-template-columns:minmax(0,1fr); gap:24px; }
+      .market-map { min-height:260px; border-radius:20px; }
+      .map-sphere { width:155px; height:155px; }
+      .market-map > div[style*="bottom"] { left:15px !important; bottom:14px !important; font-size:8px !important; letter-spacing:1.2px !important; }
+      .metric-row { gap:8px; }
+      .metric { padding:12px; }
+      .timeline::before { left:15px; }
+      .step { grid-template-columns:42px minmax(0,1fr); gap:10px; padding-bottom:24px; }
+      .step-dot { width:31px; height:31px; font-size:10px; }
+      .step h3 { font-size:16px; }
+      .step p { font-size:13px; line-height:1.65; }
+
+      .experience { padding:58px 0; }
+      .experience-shell { grid-template-columns:minmax(0,1fr); gap:26px; }
+      .browser { border-radius:16px; }
+      .browser-screen { min-height:225px; }
+      .browser-bar { gap:5px; padding:10px 12px; }
+      .mini-tag { font-size:9px; padding:7px 9px; }
+      .contact { padding:58px 0; }
+      .contact-form { grid-template-columns:minmax(0,1fr); gap:12px; padding:18px; }
+      .contact-form .textarea { grid-column:auto; }
+      .input,.select { width:100%; min-width:0; min-height:50px; font-size:16px; }
+      textarea.input { min-height:120px; }
+      .contact .actions { display:flex; flex-direction:column; }
+      .contact .actions .outline { width:100%; justify-content:center; text-align:center; }
+      .contact-note { overflow-wrap:anywhere; font-size:11px; line-height:1.7; }
+      .footer-grid { grid-template-columns:minmax(0,1fr); gap:22px; }
+      .copy { align-items:flex-start; font-size:10px; line-height:1.7; }
+      .contact-form button { width:100%; }
+      .contact-form > div[style*="justify-content:center"] { width:100%; }
+    }
+    @media (max-width: 380px) {
+      .container { width:calc(100% - 28px); }
+      .nav { min-height:64px; }
+      .logo { font-size:13px; letter-spacing:1.4px; }
+      .logo span { font-size:6.5px; letter-spacing:1.7px; }
+      .hero-grid { padding-top:28px; }
+      h1 { font-size:clamp(33px,9.6vw,38px); }
+      .hero .eyebrow { font-size:8px; letter-spacing:1.35px; }
+      .signal-art { width:min(250px,82vw); height:min(250px,82vw); }
+      .stage { height:210px; min-height:210px; }
+      .founder-identity { min-height:290px; }
+      .identity-meta strong { font-size:20px; }
+      .section-head h2,.about h2,.market-copy h2,.exp-copy h2 { font-size:30px; }
+      .hero .actions .btn,.hero .actions .outline { font-size:12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .site-intro { display:none !important; }
+    }
+
   </style>
 </head>
 <body>
